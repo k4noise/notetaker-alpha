@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notetaker</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="shortcut icon" href="./img/favicon.svg" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="loader"></div>
+    <header class="header">
+      <a href="/" class="header__link">
+        <img
+          src="./img/logo.svg"
+          alt="Логотип Notetaker"
+          class="header__logo"
+        />
+      </a>
+      <div class="navigation__controls">
+        <div class="navigation">
+          <button class="navigation__button navigation__button-sign-in">
+            Войти
+          </button>
+          <button class="navigation__button navigation__button-registration">
+            Зарегестрироваться
+          </button>
+        </div>
+        <button class="theme-changer">
+          <img
+            src="./img/theme_changer.svg"
+            alt="Иконка для смены темы сайта"
+            class="theme-changer__icon"
+          />
+          <button class="menu">
+            <img
+              src="./img/menu_icon.svg"
+              alt="Иконка меню"
+              class="menu__icon"
+            />
+          </button>
+        </button>
+      </div>
+    </header>
+    <form class="note__preview">
+      <button class="note__preview-change-color">
+        <img
+          src="./img/change_color.svg"
+          alt=""
+          class="note__preview-change-color-icon"
+        />
+      </button>
+      <input
+        class="note__preview-header"
+        placeholder="Название"
+        spellcheck="false"
+        tabindex="1"
+      />
+      <button class="note__preview-close">
+        <img src="./img/x_white.svg" alt="" class="note__preview-close-icon" />
+      </button>
+      <textarea
+        class="note__preview-text"
+        placeholder="Напишите сюда!"
+        spellcheck="false"
+        tabindex="2"
+      ></textarea>
+    </form>
+    <form method="POST" class="signin">
+      <button class="signin__close">
+        <img src="./img/x_white.svg" alt="закрыть" />
+      </button>
+      <label>
+        Логин
+        <br />
+        <input
+          type="text"
+          placeholder="login"
+          class="signin__input signin__login"
+          required
+        />
+      </label>
+      <br />
+      <label>
+        Пароль
+        <br />
+        <input
+          type="password"
+          placeholder="******"
+          class="signin__input signin__password"
+          required
+        />
+      </label>
+      <button class="signin__send">Войти</button>
+    </form>
+    <form method="POST" class="register">
+      <button class="register__close">
+        <img src="./img/x_white.svg" alt="закрыть" />
+      </button>
+      <label>
+        Логин
+        <br />
+        <input
+          type="text"
+          placeholder="login"
+          class="register__input register__login"
+          required
+        />
+      </label>
+      <br />
+      <label>
+        Пароль
+        <br />
+        <input
+          type="password"
+          placeholder="******"
+          class="register__input register__password"
+          required
+        />
+      </label>
+      <button class="register__send">Зарегестрироваться</button>
+    </form>
+    <main class="main">
+      <div class="notes__wrapper">
+        <button class="notes__note-add">
+          <h3 class="notes__note-add-header subtitle">Добавить заметку</h3>
+        </button>
+      </div>
+    </main>
+    <script src="./js/index.js"></script>
+    <script src="./js/signRegister.js"></script>
+    <script src="./js/note.js"></script>
+  </body>
+</html>

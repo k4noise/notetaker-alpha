@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru" id="top">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notetaker</title>
+    <link rel="icon" href="./img/favicon.svg" type="image/x-icon" />
+
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="loader"></div>
+    <button class="top">
+      <a href="#top" class="top__link">
+        <img src="./img/top_icon.svg" alt="Иконка вверх" />
+      </a>
+    </button>
+    <header class="header">
+      <a href="/" class="header__link">
+        <img
+          src="./img/logo.svg"
+          alt="Логотип Notetaker"
+          class="header__logo"
+        />
+      </a>
+      <div class="navigation__controls">
+        <nav class="navigation">
+          <a href="#facts" class="navigation__link">О продукте</a>
+          <a href="#faq" class="navigation__link">ЧаВО</a>
+          <button class="navigation__button">
+            <a href="./app.html" rel="prefetch" class="navigation__link"
+              >Открыть</a
+            >
+          </button>
+        </nav>
+        <button class="theme-changer">
+          <img
+            src="./img/theme_changer.svg"
+            alt="Иконка для смены темы сайта"
+            class="theme-changer__icon"
+          />
+        </button>
+        <button class="menu">
+          <img src="./img/menu_icon.svg" alt="Иконка меню" class="menu__icon" />
+        </button>
+      </div>
+    </header>
+    <main class="main">
+      <section class="main-section">
+        <h1 class="main-section__header">Самый простой способ вести заметки</h1>
+        <img
+          src="./img/pixel.png"
+          alt="Скриншот нашего приложения на Google Pixel"
+          class="main-section__image-pixel"
+        />
+        <img
+          src="./img/ipad.png"
+          alt="Скриншот нашего приложения на iPad"
+          class="main-section__image-ipad"
+        />
+      </section>
+      <section class="fact" id="facts">
+        <h2 class="title fact__header">Несколько фактов</h2>
+        <div class="wrap fact__wrap">
+          <div class="fact__element">
+            <img
+              src="./img/computer_icon.svg"
+              alt="Иконка компьютера"
+              class="fact__element-image"
+            />
+            <div class="subtitle fact__element-text">
+              Независим от платформы
+            </div>
+          </div>
+          <div class="fact__element">
+            <img
+              src="./img/auth_icon.svg"
+              alt="Иконка замка с ключом"
+              class="fact__element-image"
+            />
+            <div class="subtitle fact__element-text">
+              Не требует регистрации
+            </div>
+          </div>
+          <div class="fact__element">
+            <img
+              src="./img/day_night_icon.svg"
+              alt="Иконка со сменой дня и ночи"
+              class="fact__element-image"
+            />
+            <div class="subtitle fact__element-text">Поддерживает две темы</div>
+          </div>
+          <div class="fact__element">
+            <img
+              src="./img/dollar_icon.svg"
+              alt="Иконка с долларом"
+              class="fact__element-image"
+            />
+            <div class="subtitle fact__element-text">Полностью бесплатен</div>
+          </div>
+        </div>
+      </section>
+      <section class="faq wrap" id="faq">
+        <h2 class="title faq__header">Часто задаваемые вопросы</h2>
+        <details class="subtitle faq__answer">
+          <summary class="subtitle-bold faq__question">
+            Как работает синхронизация?
+          </summary>
+          Все заметки синхронизируются между вашим устройством, веб-приложением
+          и любыми настольными приложениями, которые вы могли бы загрузить.
+          Когда вы создаете, редактируете или удаляете заметки, они
+          автоматически синхронизируются с сервером.
+        </details>
+        <details class="subtitle faq__answer">
+          <summary class="subtitle-bold faq__question">
+            Какова максимальная длина заметки?
+          </summary>
+          Вы можете создавать очень длинные заметки, если вам это абсолютно
+          необходимо, но мы не рекомендуем делать заметки длиннее нескольких
+          тысяч слов. Огромные заметки могут занять много времени для обработки
+          как в веб-приложении, так и на вашем устройстве.
+        </details>
+        <details class="subtitle faq__answer">
+          <summary class="subtitle-bold faq__question">
+            Сколько заметок я могу сделать?
+          </summary>
+          В настоящее время мы не устанавливаем никаких ограничений на
+          количество заметок, которые вы можете сделать, пока вы не
+          злоупотребляете системой.
+        </details>
+        <details class="subtitle faq__answer">
+          <summary class="subtitle-bold faq__question">
+            Сколько стоит Notetaker?
+          </summary>
+          Нисколько. Notetaker-это бесплатный сервис.
+        </details>
+        <details class="subtitle faq__answer">
+          <summary class="subtitle-bold faq__question">
+            Обязательно ли мне иметь аккаунт?
+          </summary>
+          Нет, это не является обязательным, но для обеспечения полного
+          сохранения заметок мы рекомендуем зарегистрировать аккаунт.
+        </details>
+        <details class="subtitle faq__answer">
+          <summary class="subtitle-bold faq__question">
+            Как сменить тему?
+          </summary>
+          Выберите в правом верхнем углу значок "Солнышко с луной" и нажмите на
+          него.
+        </details>
+      </section>
+    </main>
+    <footer class="footer">
+      <img src="./img/logo.svg" alt="Логотип Notetaker" class="footer__logo" />
+      <p class="footer__copyright">
+        Разработка и дизайн:<br />
+        Марина Кистанова
+      </p>
+    </footer>
+    <script src="./js/index.js"></script>
+    <script src="./js/accordeon.js"></script>
+  </body>
+</html>

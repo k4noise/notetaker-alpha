@@ -1,0 +1,97 @@
+@media ( max-width: 900px )
+  body
+    font-size: 0.7rem
+  .navigation__controls
+    width: 420px
+  .fact
+    min-height: 70vh
+    &__element
+      margin: 4em
+  .faq
+    min-height: 90vh
+    padding-bottom: 6em
+    &__answer
+      margin-left: 1em
+    &__question
+      margin-left: -1em
+
+@media ( max-width: 768px )
+  body
+    font-size: 0.5rem
+
+  .navigation
+    display: none
+    height: 200px
+    width: 100vw
+    position: absolute
+    left: 0
+    top: 10em
+    padding: 20px 0
+    flex-direction: column
+    justify-content: space-evenly
+    background-color: var(--accent-color)
+    opacity: 0.95
+    &__controls
+      width: 100px
+    &__button
+      border-color: var(--main-text-color)
+      color: var(--main-text-color)
+      & .navigation__link
+        color: var(--main-text-color)
+
+
+  .main-section__header
+    margin: 0.5em auto 1em
+    font-size: 3.5rem
+
+  .fact
+    &__element
+      margin: 3em auto
+    &__header, .faq__header
+      font-size: 3rem
+
+  .faq
+    width: 90vw
+
+  .footer
+    padding: 2em
+    justify-content: center
+
+  .note__preview
+    &-close
+      right: 4em
+    &-header
+      margin: 0.5em 1.5em
+    &-change-color
+      left: 4em
+      &, .note__preview-close
+        top: 6.5em
+
+
+@media  ( max-width: 640px )
+  body
+    font-size: 0.3rem
+
+  .main-section__image
+    &-pixel
+      display: none
+    &-ipad
+      width: 55vh
+
+  .note__preview
+    &-header
+      width: 81vw
+      margin-left: 0.8em
+      margin-right: 0
+      text-align: center
+      margin-top: 1.2em
+    &-close, &-change-color
+      top: 3em
+    &-text
+      width: 85vw
+
+  .header__logo
+    width: 200px
+
+  .menu
+    display: block

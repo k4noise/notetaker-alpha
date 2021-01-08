@@ -1,0 +1,75 @@
+header
+  width: $width
+  margin: 2em auto 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+
+.navigation
+  width: 400px
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  &__controls
+    width: 500px
+    display: flex
+    justify-content: space-between
+
+  &__link,
+  &__button
+    padding: 0.5em 0
+    font-family: TRY_Clother_Regular, serif
+    font-size: 1.3rem
+    color: var(--main-text-color)
+
+  &__link
+    height: 25px
+    border-bottom: 3px solid transparent
+    text-decoration: transparent wavy underline
+    text-decoration-skip-ink: none
+    text-underline-position: under
+    transition: 1s
+    &:hover
+      text-decoration-color:  var(--main-text-color)
+    &:focus
+      border-bottom: 2px $border
+
+  &__button
+    height: 48px
+    border: 3px $border
+    border-radius: 15px
+    padding: 0 20px
+    display: flex
+    align-items: center
+    justify-content: space-evenly
+    color: var(--accent-color)
+    background: transparent
+    transition: .5s
+    &:hover
+      filter: $glow
+    & .navigation__link
+      color: var(--accent-color)
+      &:hover
+        text-decoration-color: transparent
+
+
+.theme-changer
+  width: 50px
+  height: 52px
+  background: none
+  margin-left: 1em
+  padding: 0
+  border: 2px solid transparent
+  &:focus
+    border: 2px $border
+    border-radius: 10px
+
+
+.menu
+  display: none
+  background: none
+  border: none
+  &__icon
+    width: 50px
