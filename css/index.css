@@ -104,7 +104,7 @@ header {
   position: sticky;
 }
 .main-section__image, .main-section__image-small {
-  width: 100vw;
+  width: 100%;
 }
 .main-section__image-small {
   display: none;
