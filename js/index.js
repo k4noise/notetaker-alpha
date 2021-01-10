@@ -17,17 +17,6 @@ setTimeout(() => {
  * @param {string} backgroundColorVariable Имя переменной (включая два дефиса), обозначающей цвет фона в CSS
  * @returns {void}
  */
-// document.addEventListener(
-//   'DOMContentLoaded',
-//   () => {
-//     setTimeout(() => {
-//       document.querySelector('.loader').style.display = 'none';
-//     }, 0);
-//     document.body.classList.add('animate');
-//   },
-//   false
-// );
-
 const setTheme = (textColorVariable, backgroundColorVariable) => {
   const textColor = localStorage.getItem('textColor'),
     backgroundColor = localStorage.getItem('backgroundColor');
