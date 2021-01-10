@@ -1,5 +1,5 @@
 const signInButton = document.querySelector('.navigation__button-sign-in'),
-  registrationButton = document.querySelectors(
+  registrationButton = document.querySelector(
     '.navigation__button-registration'
   );
 
