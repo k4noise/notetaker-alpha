@@ -197,10 +197,10 @@ const updateNote = (event, note) => {
       note.setText(currentText);
       break;
     case 'note__preview-header':
-      note.setHeader(currentText);
       if (event.key === 'Enter') {
         notePreviewText.focus();
       }
+      note.setHeader(currentText);
       break;
   }
 };
@@ -309,3 +309,4 @@ const renderNoteTiles = () => {
 
 renderNoteTiles();
 addNoteButton.addEventListener('click', createNote);
+notePreview.addEventListener('submit', (event) => event.preventDefault());
