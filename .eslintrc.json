@@ -12,7 +12,6 @@
   },
 
   "rules": {
-    "comma-dangle": ["error", "never"],
     "no-cond-assign": ["error", "always"],
     "no-console": "error",
     "no-constant-condition": "error",

@@ -17,10 +17,7 @@ const login = async (body) => {
       result.body = {};
       result.body.error = {};
       result.body.error.code = 401;
-      result.body.error.message = "Unauthorized";
-      result.body.error.errors = {};
-      result.body.error.errors.password = "Incorrect password"
-
+      result.body.error.errors.password = 'Incorrect password';
     }
   } else {
     result.status = 422;
