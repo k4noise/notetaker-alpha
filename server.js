@@ -7,7 +7,7 @@ mod.http = require('http');
 mod.fs = require('fs');
 mod.path = require('path');
 mod.bcrypt = require('bcrypt');
-mod.validator = require('./api/validate');
+mod.isValidObject = require('./api/validate');
 mod.static = require('./api/static');
 
 global.api = {};
@@ -15,7 +15,7 @@ api.db = require('./api/database');
 api.register = require('./api/register');
 api.login = require('./api/login');
 api.routing = require('./api/routing');
-
+api.searchUser = require('./api/searchUser');
 
 const onRequest = async (req, res) => {
   let body = '';
@@ -27,13 +27,11 @@ const onRequest = async (req, res) => {
   }
   if (api.routing[req.url]) {
     const result = await api.routing[req.url](body);
-    if (result.body) {
-      res.writeHead(result.status, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(result.body));
-    } else {
-      res.writeHead(result.status, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(result.body));
+    if (req.url === '/api/register') {
+      res.setHeader('Set-Cookie', `token=${result.body.token}; HttpOnly`);
     }
+    res.writeHead(result.status, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result.body));
   } else {
     const file = await mod.static(fileShortcuts[req.url] || req.url);
     res.writeHead(200, { 'Content-Type': file.mime });

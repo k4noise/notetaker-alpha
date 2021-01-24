@@ -12,9 +12,11 @@ const register = async (body) => {
     await api.db.query('insert into users values($1, $2, $3)', [
       body.login,
       readyPassword,
-      token
+      token,
     ]);
-    result.status = 204;
+    result.status = 202;
+    result.body = {};
+    result.body.token = token;
   } else {
     result.status = 422;
     result.body = {};
