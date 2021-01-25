@@ -1,3 +1,5 @@
+const { password } = require('./api/database');
+
 require('dotenv').config();
 global.salt = process.env.salt;
 
@@ -16,6 +18,14 @@ api.register = require('./api/register');
 api.login = require('./api/login');
 api.routing = require('./api/routing');
 api.searchUser = require('./api/searchUser');
+
+if (api.db) {
+  api.db.query(`create table if not exists users(
+    login varchar(20),
+    password varchar(60),
+    token varchar(20)
+  )`);
+}
 
 const onRequest = async (req, res) => {
   let body = '';
