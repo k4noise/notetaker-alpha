@@ -4,8 +4,11 @@ const generateToken = () => {
 };
 
 const register = async (body) => {
+  const valid = mod.isValidObject(body, ['password', 'login']);
   const result = {};
-  if (body.password && body.login) {
+  result.body = {};
+  const userAuthData = await api.searchUser(body.login);
+  if (valid && !userAuthData) {
     const password = body.password;
     const readyPassword = mod.bcrypt.hashSync(password, salt);
     const token = generateToken();
@@ -15,21 +18,22 @@ const register = async (body) => {
       token,
     ]);
     result.status = 202;
-    result.body = {};
+    result.body.code = 202;
     result.body.token = token;
-  } else {
+  } else if (!valid) {
     result.status = 422;
-    result.body = {};
-    result.body.error = {};
-    result.body.error.code = 422;
-    result.body.error.message = 'Validation error';
-    result.body.error.errors = {};
+    result.body.code = 422;
+    result.body.message = 'Validation error';
     if (!body.password) {
-      result.body.error.errors.password = 'Field password can not be blank';
+      result.body.password = 'Field password can not be blank';
     }
     if (!body.login) {
-      result.body.error.errors.login = 'Field login can not be blank';
+      result.body.login = 'Field login can not be blank';
     }
+  } else {
+    result.status = 403;
+    result.body.code = 403;
+    result.body.message = 'User exists';
   }
 
   return result;

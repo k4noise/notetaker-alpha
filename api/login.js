@@ -18,16 +18,10 @@ const login = async (body) => {
         result.body.message = 'Incorrect password';
       }
     } else {
-      result.status = 422;
+      result.status = 404;
       result.body = {};
-      result.body.code = 422;
-      result.body.message = 'Validation error';
-      if (!body.password) {
-        result.body.password = 'Field password can not be blank';
-      }
-      if (!body.login) {
-        result.body.login = 'Field login can not be blank';
-      }
+      result.body.code = 404;
+      result.body.message = 'User not exist';
     }
   } else {
     result.status = 422;
