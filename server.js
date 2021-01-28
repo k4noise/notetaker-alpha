@@ -1,5 +1,3 @@
-const { password } = require('./api/database');
-
 require('dotenv').config();
 global.salt = process.env.salt;
 
@@ -16,6 +14,7 @@ global.api = {};
 api.db = require('./api/database');
 api.register = require('./api/register');
 api.login = require('./api/login');
+api.notes = require('./api/notes');
 api.routing = require('./api/routing');
 api.searchUser = require('./api/searchUser');
 

@@ -26,24 +26,25 @@ const randomKey = () => Math.random().toString(16).slice(5, 15);
 
 /**
  * Генерирует дату в соответствии с форматом
+ * @param {object} date Дата
  * @returns {string} Дата в нужном формате
  */
-const dateGenerator = () =>
-  new Date().toLocaleString('ru-RU', {
+const dateGenerator = (date) =>
+  new Date(date).toLocaleString('ru-RU', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',
-    hour12: false
+    hour12: false,
   });
 
 class Note {
   #key = randomKey();
   #tile = null;
   color = randomColor();
-  date = dateGenerator();
+  date = new Date();
 
   /**
    * Создает объект заметки из существующего объекта данных заметки
@@ -147,7 +148,7 @@ const createTile = (note) => {
           <h3 class="subtitle notes__note-header">${
             note.header || 'Без заголовка'
           }</h3>
-          <span class="notes__note-date">${note.date}</span>
+          <span class="notes__note-date">${dateGenerator(note.date)}</span>
         <button class="notes__note-button">
           <img
           src="./img/edit.svg"
