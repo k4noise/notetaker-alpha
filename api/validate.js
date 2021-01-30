@@ -5,13 +5,15 @@
  * @returns {bool} Наличие всех свойств в объекте
  */
 const isValidObject = (obj, properties) => {
-  let valid = true;
+  let isValid = true;
+  const errors = {};
   properties.forEach((property) => {
     if (!obj[property]) {
-      valid = false;
+      isValid = false;
+      errors[property] = `Field ${property} can not be blank`;
     }
   });
-  return valid;
+  return { isValid, errors };
 };
 
 module.exports = isValidObject;

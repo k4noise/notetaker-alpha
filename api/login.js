@@ -1,7 +1,7 @@
 const login = async (body) => {
   const valid = mod.isValidObject(body, ['password', 'login']);
   const result = {};
-  if (valid) {
+  if (valid.isValid) {
     const userAuthData = await api.searchUser(body.login);
     if (userAuthData) {
       if (
@@ -28,12 +28,7 @@ const login = async (body) => {
     result.body = {};
     result.body.code = 422;
     result.body.message = 'Validation error';
-    if (!body.password) {
-      result.body.password = 'Field password can not be blank';
-    }
-    if (!body.login) {
-      result.body.login = 'Field login can not be blank';
-    }
+    result.body.errors = valid.errors;
   }
   return result;
 };

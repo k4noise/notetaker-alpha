@@ -8,7 +8,7 @@ const register = async (body) => {
   const result = {};
   result.body = {};
   const userAuthData = await api.searchUser(body.login);
-  if (valid && !userAuthData) {
+  if (valid.isValid && !userAuthData) {
     const password = body.password;
     const readyPassword = mod.bcrypt.hashSync(password, salt);
     const token = generateToken();
@@ -20,16 +20,11 @@ const register = async (body) => {
     result.status = 202;
     result.body.code = 202;
     result.body.token = token;
-  } else if (!valid) {
+  } else if (!valid.isValid) {
     result.status = 422;
     result.body.code = 422;
     result.body.message = 'Validation error';
-    if (!body.password) {
-      result.body.password = 'Field password can not be blank';
-    }
-    if (!body.login) {
-      result.body.login = 'Field login can not be blank';
-    }
+    result.body.errors = valid.errors;
   } else {
     result.status = 403;
     result.body.code = 403;

@@ -9,29 +9,11 @@ const addNotes = async (body) => {
     'header',
     'text',
   ]);
-  if (!valid) {
+  if (!valid.isValid) {
     result.status = 422;
     result.body.code = 422;
     result.body.message = 'Validation error';
-    result.body.errors = {};
-    if (!body.login) {
-      result.body.errors.login = 'Field login can not be blank';
-    }
-    if (!body.key) {
-      result.body.errors.key = 'Field key can not be blank';
-    }
-    if (!body.color) {
-      result.body.errors.color = 'Field color can not be blank';
-    }
-    if (!body.date) {
-      result.body.errors.date = 'Field date can not be blank';
-    }
-    if (!body.header) {
-      result.body.errors.header = 'Field header can not be blank';
-    }
-    if (!body.text) {
-      result.body.errors.text = 'Field text can not be blank';
-    }
+    result.body.errors = valid.errors;
     return result;
   }
   const addNoteQuery = `insert into ${body.login} values (
