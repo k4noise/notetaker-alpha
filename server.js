@@ -6,9 +6,10 @@ global.mod = {};
 mod.http = require('http');
 mod.fs = require('fs');
 mod.path = require('path');
-mod.bcrypt = require('bcrypt');
-mod.isValidObject = require('./api/validate');
 mod.static = require('./api/static');
+mod.postReceiver = require('./api/postReceiver');
+mod.isValidObject = require('./api/validate');
+mod.bcrypt = require('bcrypt');
 
 global.api = {};
 api.db = require('./api/database');
@@ -19,22 +20,8 @@ api.addNotes = require('./api/addNote');
 api.routing = require('./api/routing');
 api.searchUser = require('./api/searchUser');
 
-if (api.db) {
-  api.db.query(`create table if not exists users(
-    login varchar(20),
-    password varchar(60),
-    token varchar(20)
-  )`);
-}
-
-const onRequest = async (req, res) => {
-  let body = '';
-  if (req.method !== 'GET') {
-    await req.on('data', (chunk) => {
-      body += chunk.toString();
-    });
-    body = JSON.parse(body);
-  }
+const requestHandler = async (req, res) => {
+  const body = await mod.postReceiver(req);
   if (api.routing[req.url]) {
     const result = await api.routing[req.url](body);
     if (req.url === '/api/register') {
@@ -49,6 +36,6 @@ const onRequest = async (req, res) => {
   }
 };
 
-mod.http.createServer(onRequest).listen(8125);
+mod.http.createServer(requestHandler).listen(8125);
 
 process.stdout.write('Server running at http://localhost:8125/');

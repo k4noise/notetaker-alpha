@@ -10,6 +10,11 @@ const mimeTypes = {
   '.ico': 'image/x-icon',
 };
 
+/**
+ * Читает статический файл и отдает его серверу
+ * @param {string} fileName Имя запрашиваемого файла
+ * @returns {object} Содержит MIME-тип и буфер прочитанного файла
+ */
 const staticFiles = (fileName) => {
   const response = {},
     filePath = `./${fileName}`,

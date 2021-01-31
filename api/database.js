@@ -1,16 +1,19 @@
-const {Client} = require('pg');
+const { Client } = require('pg');
 
 const client = new Client({
-  connectionString: 'postgres://postgres:9757@127.0.0.1:5432/notetaker'
+  user: 'postgres',
+  host: '127.0.0.1',
+  database: 'notetaker',
+  password: '9757',
+  port: 5432,
 });
+
 client.connect();
 
-// {
-//   user: 'postgres',
-//   host: '127.0.0.1',
-//   database: 'notetaker',
-//   password: '9757',
-//   port: 3651
-// }
+client.query(`create table if not exists users(
+    login varchar(20),
+    password varchar(60),
+    token varchar(20)
+  )`);
 
 module.exports = client;
