@@ -18,11 +18,11 @@ const mimeTypes = {
 const staticFiles = (fileName) => {
   const response = {},
     filePath = `./${fileName}`,
-    ext = mod.path.extname(filePath).toLowerCase();
+    ext = path.extname(filePath).toLowerCase();
   response.mime = mimeTypes[ext] || 'application/octet-stream';
-  response.data = mod.fs.existsSync(filePath)
-    ? mod.fs.readFileSync(filePath)
-    : mod.fs.readFileSync('./404.html');
+  response.data = fs.existsSync(filePath)
+    ? fs.readFileSync(filePath)
+    : fs.readFileSync('./404.html');
   return response;
 };
 

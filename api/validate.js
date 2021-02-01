@@ -2,7 +2,7 @@
  * Проверяет объект на наличие всех свойств, указанных в properties
  * @param {object} obj Проверяемый объект
  * @param {array} properties Проверяемые свойства
- * @returns {bool} Наличие всех свойств в объекте
+ * @returns {bool} Наличие всех свойств в объекте и ошибки при их наличии
  */
 const isValidObject = (obj, properties) => {
   let isValid = true;

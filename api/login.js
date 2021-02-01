@@ -1,12 +1,12 @@
 const login = async (body) => {
-  const valid = mod.isValidObject(body, ['password', 'login']);
+  const valid = isValidObject(body, ['password', 'login']);
   const result = {};
   if (valid.isValid) {
     const userAuthData = await api.searchUser(body.login);
     if (userAuthData) {
       if (
         userAuthData.password ===
-        mod.bcrypt.hashSync(body.password, process.env.salt)
+        bcrypt.hashSync(body.password, process.env.salt)
       ) {
         result.status = 200;
         result.body = {};

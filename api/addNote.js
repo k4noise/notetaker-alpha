@@ -1,7 +1,7 @@
 const addNotes = async (body) => {
   const result = {};
   result.body = {};
-  const valid = mod.isValidObject(body, [
+  const valid = isValidObject(body, [
     'login',
     'key',
     'color',

@@ -4,13 +4,13 @@ const generateToken = () => {
 };
 
 const register = async (body) => {
-  const valid = mod.isValidObject(body, ['password', 'login']);
+  const valid = isValidObject(body, ['password', 'login']);
   const result = {};
   result.body = {};
   const userAuthData = await api.searchUser(body.login);
   if (valid.isValid && !userAuthData) {
     const password = body.password;
-    const readyPassword = mod.bcrypt.hashSync(password, salt);
+    const readyPassword = bcrypt.hashSync(password, salt);
     const token = generateToken();
     await api.db.query('insert into users values($1, $2, $3)', [
       body.login,
