@@ -1,5 +1,8 @@
-const searchUser = require('./searchUser');
-
+/**
+ * Читает заметки определенного пользователя по токену
+ * @param {object} { token } Токен пользователя
+ * @returns {any} Тело-ответ
+ */
 const notes = async ({ token }) => {
   const user = await searchUser(token);
   const result = {};

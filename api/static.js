@@ -1,4 +1,4 @@
-const mimeTypes = {
+const MIME_TYPES = {
   '.html': 'text/html',
   '.js': 'text/javascript',
   '.css': 'text/css',
@@ -19,10 +19,11 @@ const staticFiles = (fileName) => {
   const response = {},
     filePath = `./${fileName}`,
     ext = path.extname(filePath).toLowerCase();
-  response.mime = mimeTypes[ext] || 'application/octet-stream';
-  response.data = fs.existsSync(filePath)
+  response.mime = MIME_TYPES[ext] || 'application/octet-stream';
+  response.body = fs.existsSync(filePath)
     ? fs.readFileSync(filePath)
     : fs.readFileSync('./404.html');
+  response.status = 200;
   return response;
 };
 

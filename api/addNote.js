@@ -1,3 +1,8 @@
+/**
+ * Выполняет добавление заметки в базу данных
+ * @param {object} body Данные о заметках и пользователе
+ * @returns {object} Тело-ответ
+ */
 const addNotes = async (body) => {
   const result = {};
   result.body = {};

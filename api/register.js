@@ -1,8 +1,17 @@
+/**
+ * Генерирует токен
+ * @returns {string} Токен
+ */
 const generateToken = () => {
   const tokenPart = () => Math.random().toString(16).slice(3, 7);
   return `${tokenPart()}-${tokenPart()}-${tokenPart()}-${tokenPart()}`;
 };
 
+/**
+ * Заносит в базу данных пользователя
+ * @param {object} body Данные о пользователе
+ * @returns {object} Тело-ответ
+ */
 const register = async (body) => {
   const valid = isValidObject(body, ['password', 'login']);
   const result = {};

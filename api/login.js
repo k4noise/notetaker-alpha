@@ -1,3 +1,8 @@
+/**
+ * Сверяет логин и пароль с базой данных
+ * @param {object} body Данные о пальзователе
+ * @returns {object} Тело-ответ
+ */
 const login = async (body) => {
   const valid = isValidObject(body, ['password', 'login']);
   const result = {};

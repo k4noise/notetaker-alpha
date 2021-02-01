@@ -20,7 +20,10 @@ api.routing = require('./api/routing');
 api.searchUser = require('./api/searchUser');
 
 const requestHandler = async (req, res) => {
-  const body = await postReceiver(req);
+  let body = req.url;
+  if (req.method !== 'GET') {
+    body = await postReceiver(req);
+  }
   if (api.routing[req.url]) {
     const result = await api.routing[req.url](body);
     if (req.url === '/api/register') {
@@ -31,7 +34,7 @@ const requestHandler = async (req, res) => {
   } else {
     const file = await staticFile(fileShortcuts[req.url] || req.url);
     res.writeHead(200, { 'Content-Type': file.mime });
-    res.end(file.data);
+    res.end(file.body);
   }
 };
 
