@@ -1,5 +1,3 @@
-const staticFiles = require('./static');
-
 const routing = {
   '/api/register': api.register,
   '/api/login': api.login,
@@ -7,4 +5,6 @@ const routing = {
   '/api/addNote': api.addNotes,
 };
 
-module.exports = routing;
+const shortUrl = { '/': 'index.html', '/app': 'app.html' };
+
+module.exports = { routing, shortUrl };

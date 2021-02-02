@@ -4,7 +4,7 @@
  * @returns {any} Тело-ответ
  */
 const notes = async ({ token }) => {
-  const user = await searchUser(token);
+  const user = await api.searchUser(token);
   const result = {};
   result.body = {};
   if (token) {
