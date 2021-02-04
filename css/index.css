@@ -10,6 +10,76 @@
   src: local(TRY_Clother), url(../fonts/TRY_Clother-Black.woff) format("woff");
   font-family: TRY_Clother_Black;
 }
+:root {
+  --main-text-color: #1f1f1f;
+  --accent-color: #42bdde;
+  --main-background-color: #f0f8ff;
+}
+
+*:focus {
+  outline: none;
+  transition: 1s;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  color: var(--main-text-color);
+  user-select: none;
+  background-color: var(--main-background-color);
+}
+
+button {
+  cursor: pointer;
+}
+
+.animate {
+  transition: background 0.3s ease-out, color 0.3s ease-out;
+}
+
+.top {
+  position: fixed;
+  background: none;
+  border: none;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10;
+  translate: 0.3s;
+}
+
+.wrap {
+  width: min(1400px, 90vw);
+  margin: auto;
+}
+
+.title {
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  padding-top: 1em;
+  font-family: TRY_Clother_Regular, serif;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-family: TRY_Clother_Regular, serif;
+  font-size: 2rem;
+  word-break: break-word;
+}
+.subtitle-bold {
+  font-family: TRY_Clother_Bold, serif;
+  font-size: 2rem;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.2s;
+}
+
 header {
   width: min(1400px, 90vw);
   margin: 2em auto 0;
@@ -379,8 +449,8 @@ header {
   }
 
   .main-section__header {
-    margin: 0.5em auto 1em;
-    font-size: 3.5rem;
+    margin: 1em auto 1em;
+    font-size: 3rem;
   }
 
   .fact__element {
@@ -395,8 +465,9 @@ header {
   }
 
   .footer {
-    padding: 2em;
+    padding-top: 3em;
     justify-content: center;
+    margin: auto;
   }
 
   .note__preview-close {
@@ -413,8 +484,12 @@ header {
   }
 }
 @media (max-width: 640px) {
-  body {
-    font-size: 0.3rem;
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle, .subtitle-bold {
+    font-size: 1.5rem;
   }
 
   .main-section__image {
@@ -445,75 +520,15 @@ header {
   .menu {
     display: block;
   }
-}
-:root {
-  --main-text-color: #1f1f1f;
-  --accent-color: #42bdde;
-  --main-background-color: #f0f8ff;
-}
 
-*:focus {
-  outline: none;
-  transition: 1s;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  box-sizing: border-box;
-  color: var(--main-text-color);
-  user-select: none;
-  background-color: var(--main-background-color);
-}
-
-button {
-  cursor: pointer;
-}
-
-.animate {
-  transition: background 0.3s ease-out, color 0.3s ease-out;
-}
-
-.top {
-  position: fixed;
-  background: none;
-  border: none;
-  bottom: 30px;
-  right: 30px;
-  z-index: 10;
-  translate: 0.3s;
-}
-
-.wrap {
-  width: min(1400px, 90vw);
-  margin: auto;
-}
-
-.title {
-  margin-bottom: 1.5em;
-  margin-top: 0;
-  padding-top: 1em;
-  font-family: TRY_Clother_Regular, serif;
-  font-size: 4rem;
-  text-align: center;
-}
-
-.subtitle {
-  font-family: TRY_Clother_Regular, serif;
-  font-size: 2rem;
-  word-break: break-word;
-}
-.subtitle-bold {
-  font-family: TRY_Clother_Bold, serif;
-  font-size: 2rem;
-}
-
-.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: 0.2s;
+  .fact__element {
+    width: 75vw;
+    display: flex;
+    align-items: center;
+  }
+  .fact__element-image {
+    margin-bottom: 0;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */
