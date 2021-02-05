@@ -58,6 +58,8 @@ const toggleNavigation = () => {
     navigation.style.display === 'flex' ? 'none' : 'flex';
 };
 
+navigation.addEventListener('click', toggleNavigation);
+
 menuShowIcon.addEventListener('click', toggleNavigation);
 
 setTheme(textColorVariable, backgroundColorVariable);
