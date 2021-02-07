@@ -32,6 +32,7 @@ const addNotes = async (body) => {
     body.text,
   ]);
   result.status = 204;
+  result.body = JSON.stringify(result.body);
   return result;
 };
 

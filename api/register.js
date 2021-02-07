@@ -39,7 +39,7 @@ const register = async (body) => {
     result.body.code = 403;
     result.body.message = 'User exists';
   }
-
+  result.body = JSON.stringify(result.body);
   return result;
 };
 

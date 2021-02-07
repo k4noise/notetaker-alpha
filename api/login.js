@@ -35,6 +35,7 @@ const login = async (body) => {
     result.body.message = 'Validation error';
     result.body.errors = valid.errors;
   }
+  result.body = JSON.stringify(result.body);
   return result;
 };
 

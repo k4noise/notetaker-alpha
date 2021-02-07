@@ -33,6 +33,7 @@ const notes = async ({ token }) => {
     result.body.status = 401;
     result.body.message = 'Unauthorized';
   }
+  result.body = JSON.stringify(result.body);
   return result;
 };
 
