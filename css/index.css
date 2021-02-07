@@ -36,50 +36,6 @@ button {
   cursor: pointer;
 }
 
-.animate {
-  transition: background 0.3s ease-out, color 0.3s ease-out;
-}
-
-.top {
-  position: fixed;
-  background: none;
-  border: none;
-  bottom: 30px;
-  right: 30px;
-  z-index: 10;
-  translate: 0.3s;
-}
-
-.wrap {
-  width: min(1400px, 90vw);
-  margin: auto;
-}
-
-.title {
-  margin-bottom: 1.5em;
-  margin-top: 0;
-  padding-top: 1em;
-  font-family: TRY_Clother_Regular, serif;
-  font-size: 4rem;
-  text-align: center;
-}
-
-.subtitle {
-  font-family: TRY_Clother_Regular, serif;
-  font-size: 2rem;
-  word-break: break-word;
-}
-.subtitle-bold {
-  font-family: TRY_Clother_Bold, serif;
-  font-size: 2rem;
-}
-
-.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: 0.2s;
-}
-
 header {
   width: min(1400px, 90vw);
   margin: 2em auto 0;
@@ -389,6 +345,50 @@ header {
 }
 .signin__send:hover, .register__send:hover {
   filter: drop-shadow(0 0 35px var(--accent-color));
+}
+
+.animate {
+  transition: background 0.3s ease-out, color 0.3s ease-out;
+}
+
+.top {
+  position: fixed;
+  background: none;
+  border: none;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10;
+  translate: 0.3s;
+}
+
+.wrap {
+  width: min(1400px, 90vw);
+  margin: auto;
+}
+
+.title {
+  margin-bottom: 1.5em;
+  margin-top: 0;
+  padding-top: 1em;
+  font-family: TRY_Clother_Regular, serif;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-family: TRY_Clother_Regular, serif;
+  font-size: 2rem;
+  word-break: break-word;
+}
+.subtitle-bold {
+  font-family: TRY_Clother_Bold, serif;
+  font-size: 2rem;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.2s;
 }
 
 @media (max-width: 900px) {

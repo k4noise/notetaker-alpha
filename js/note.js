@@ -1,3 +1,6 @@
+const onlineMode = navigator.onLine;
+const token = document.cookie.token;
+
 const addNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
   closeNotePreviewButton = document.querySelector('.note__preview-close'),
