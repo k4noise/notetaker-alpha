@@ -20,10 +20,11 @@ const staticFiles = (fileName) => {
     filePath = `./${fileName}`,
     ext = path.extname(filePath).toLowerCase();
   response.mime = MIME_TYPES[ext] || 'application/octet-stream';
-  response.body = fs.existsSync(filePath)
+  const isExist = fs.existsSync(filePath);
+  response.body = isExist
     ? fs.readFileSync(filePath)
     : fs.readFileSync('./404.html');
-  response.status = 200;
+  response.status = isExist ? 200 : 404;
   return response;
 };
 
