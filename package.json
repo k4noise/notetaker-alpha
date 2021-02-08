@@ -8,6 +8,7 @@
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.14.0",
+    "node-gyp": "^7.1.2",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1"
   },
@@ -16,11 +17,13 @@
     "sass": "^1.32.0"
   },
   "scripts": {
+    "first-startup": "npm generate && npm create-database",
     "test": "echo \"Error: no test specified\" && exit 1",
     "bs": "browser-sync start --server --files '*.*'",
     "start": "nodemon server",
     "generate": "node generate.js",
-    "sass-compile": "sass --watch sass/index.sass css/index.css"
+    "sass-compile": "sass --watch sass/index.sass css/index.css",
+    "create-database": "node ./api/createDatabase.js"
   },
   "author": "k4noise",
   "license": "ISC"

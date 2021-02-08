@@ -16,16 +16,19 @@ document.querySelector('.register').addEventListener('submit', (e) => {
   e.preventDefault();
 });
 
-endRegisterButton.addEventListener('click', () => {
+endRegisterButton.addEventListener('click', async () => {
   const form = document.forms.register;
-  fetch('./api/register', {
+  const result = await fetch('/api/register', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify({
       login: form.elements.register_login.value,
-      password: form.elements.register_password.value
-    })
+      password: form.elements.register_password.value,
+    }),
   });
+  if (result.code !== 202) {
+    form.innerHTML += result.message;
+  }
 });
