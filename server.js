@@ -20,7 +20,7 @@ api.searchUser = require('./api/searchUser');
 global.router = require('./api/routing');
 
 const requestHandler = async (req, res) => {
-  const body = {};
+  let body = {};
   body.url = req.url;
   if (req.method !== 'GET') {
     body += await dataReceiver(req);
