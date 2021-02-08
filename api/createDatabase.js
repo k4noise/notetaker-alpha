@@ -7,7 +7,9 @@ const client = new Client({
   password: '9757',
   port: 5432,
 });
-client.query('create database notetaker').then((err, res) => {
-  console.log(res);
+
+client.connect();
+
+client.query('create database notetaker').then(() => {
+  process.stdout.write('База успешно создана');
 });
-process.stdout.write('База успешно создана');

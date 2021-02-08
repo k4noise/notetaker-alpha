@@ -25,7 +25,6 @@ const requestHandler = async (req, res) => {
     body = await dataReceiver(req);
   }
   body.url = req.url;
-  console.log(body);
   const file = await router(body);
   res.writeHead(file.status, {
     'Content-Type': file.mime || 'application/json',
