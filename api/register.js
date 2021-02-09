@@ -35,8 +35,8 @@ const register = async (body) => {
     result.body.message = 'Validation error';
     result.body.errors = valid.errors;
   } else {
-    result.status = 403;
-    result.body.code = 403;
+    result.status = 409;
+    result.body.code = 409;
     result.body.message = 'User exists';
   }
   result.body = JSON.stringify(result.body);

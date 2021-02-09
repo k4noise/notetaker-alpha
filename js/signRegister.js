@@ -18,7 +18,7 @@ document.querySelector('.register').addEventListener('submit', (e) => {
 
 endRegisterButton.addEventListener('click', async () => {
   const form = document.forms.register;
-  const result = await fetch('/api/register', {
+  const response = await fetch('/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -28,6 +28,7 @@ endRegisterButton.addEventListener('click', async () => {
       password: form.elements.register_password.value,
     }),
   });
+  const result = await response.json();
   if (result.code !== 202) {
     form.innerHTML += result.message;
   }
