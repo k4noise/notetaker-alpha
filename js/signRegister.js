@@ -1,35 +1,51 @@
 const signInButton = document.querySelector('.navigation__button-sign-in'),
-  registrationButton = document.querySelector(
-    '.navigation__button-registration'
-  ),
-  endRegisterButton = document.querySelector('.register__send');
+  registerButton = document.querySelector('.navigation__button-registration'),
+  endRegisterButton = document.querySelector('.register__send'),
+  signInForm = document.forms.signIn,
+  registerForm = document.forms.register;
 
 signInButton.addEventListener('click', () => {
-  document.querySelector('.signin').style.display = 'flex';
+  signInForm.style.display = 'flex';
 });
 
-registrationButton.addEventListener('click', () => {
-  document.querySelector('.register').style.display = 'flex';
+registerButton.addEventListener('click', () => {
+  registerForm.style.display = 'flex';
 });
 
-document.querySelector('.register').addEventListener('submit', (e) => {
+registerForm.addEventListener('submit', (e) => {
   e.preventDefault();
 });
 
 endRegisterButton.addEventListener('click', async () => {
-  const form = document.forms.register;
   const response = await fetch('/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify({
-      login: form.elements.register_login.value,
-      password: form.elements.register_password.value,
+      login: registerForm.elements.register_login.value,
+      password: registerForm.elements.register_password.value,
     }),
   });
   const result = await response.json();
   if (result.code !== 202) {
-    form.innerHTML += result.message;
+    registerForm.innerHTML += result.message;
+  }
+});
+
+registerButton.addEventListener('click', async () => {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({
+      login: signInForm.elements.signin_login.value,
+      password: signInForm.elements.signin_password.value,
+    }),
+  });
+  const result = await response.json();
+  if (result.code !== 202) {
+    signInForm.innerHTML += result.message;
   }
 });
