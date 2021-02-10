@@ -28,7 +28,7 @@ const requestHandler = async (req, res) => {
   const file = await router(body);
   const headers = { 'Content-Type': file.mime || 'application/json' };
   if (body.token) {
-    headers['Set-Cookie'] = `token=${body.token}`;
+    headers['Set-Cookie'] = `token=${body.token}; httpOnly`;
   }
   res.writeHead(file.status, headers);
   res.end(file.body);

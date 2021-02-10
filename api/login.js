@@ -14,6 +14,7 @@ const login = async (body) => {
         bcrypt.hashSync(body.password, process.env.salt)
       ) {
         result.status = 200;
+        result.token = userAuthData.token;
         result.body = {};
         result.body.token = userAuthData.token;
       } else {

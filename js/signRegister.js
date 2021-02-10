@@ -1,7 +1,8 @@
 const signInButton = document.querySelector('.navigation__button-sign-in'),
   registerButton = document.querySelector('.navigation__button-registration'),
   endRegisterButton = document.querySelector('.register__send'),
-  signInForm = document.forms.signIn,
+  endSignInButton = document.querySelector('.signin__send'),
+  signInForm = document.forms.signin,
   registerForm = document.forms.register;
 
 signInButton.addEventListener('click', () => {
@@ -12,6 +13,9 @@ registerButton.addEventListener('click', () => {
   registerForm.style.display = 'flex';
 });
 
+signInForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+});
 registerForm.addEventListener('submit', (e) => {
   e.preventDefault();
 });
@@ -33,7 +37,7 @@ endRegisterButton.addEventListener('click', async () => {
   }
 });
 
-registerButton.addEventListener('click', async () => {
+endSignInButton.addEventListener('click', async () => {
   const response = await fetch('/api/login', {
     method: 'POST',
     headers: {
@@ -46,6 +50,6 @@ registerButton.addEventListener('click', async () => {
   });
   const result = await response.json();
   if (result.code !== 202) {
-    signInForm.innerHTML += result.message;
+    signInForm.innerHTML += result.message || 'Успешно!';
   }
 });

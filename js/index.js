@@ -47,21 +47,6 @@ const changeTheme = (textColorVariable, backgroundColorVariable) => {
   themeChangerButton.blur();
 };
 
-/**
- * Используется для скрытия и отображения навигации
- * navigation - index.html
- * controlsNavigation - app.html
- * @returns {void}
- */
-const toggleNavigation = () => {
-  navigation.style.display =
-    navigation.style.display === 'flex' ? 'none' : 'flex';
-};
-
-navigation.addEventListener('click', toggleNavigation);
-
-menuShowIcon.addEventListener('click', toggleNavigation);
-
 setTheme(textColorVariable, backgroundColorVariable);
 
 themeChangerButton.addEventListener('click', () =>
