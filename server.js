@@ -32,7 +32,7 @@ const requestHandler = async (req, res) => {
     expireCookieDate.setDate(expireCookieDate.getDate() + 14);
     headers['Set-Cookie'] = `token=${
       file.token
-    };Expires=${expireCookieDate.toUTCString()};Path=/app; HttpOnly`;
+    };Expires=${expireCookieDate.toUTCString()}; Path=/; HttpOnly`;
   }
   res.writeHead(file.status, headers);
   res.end(file.body);
