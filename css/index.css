@@ -331,6 +331,9 @@ header {
   border: none;
   background: none;
 }
+.signin__notice, .register__notice {
+  color: yellow;
+}
 .signin__input, .signin__send, .register__input, .register__send {
   background: none;
   border: none;

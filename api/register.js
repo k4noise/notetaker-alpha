@@ -28,6 +28,7 @@ const register = async (body) => {
     ]);
     result.status = 202;
     result.body.code = 202;
+    result.token = token;
     result.body.token = token;
   } else if (!valid.isValid) {
     result.status = 422;
