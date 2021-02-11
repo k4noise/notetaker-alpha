@@ -160,7 +160,6 @@
     "no-bitwise": "error",
     "no-continue": "warn",
     "no-inline-comments": "warn",
-    "no-lonely-if": "warn",
     "no-mixed-spaces-and-tabs": "error",
     "no-nested-ternary": "error",
     "no-new-object": "error",

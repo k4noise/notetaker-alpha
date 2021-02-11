@@ -26,19 +26,18 @@ const register = async (body) => {
       readyPassword,
       token,
     ]);
-    result.status = 202;
-    result.body.code = 202;
-    result.token = token;
-    result.body.token = token;
+    result.status = 200;
+    result.body.code = 200;
+    result.body.message = 'Регистрация прошла успешно!';
   } else if (!valid.isValid) {
     result.status = 422;
     result.body.code = 422;
-    result.body.message = 'Validation error';
+    result.body.message = 'Ошибка валидации';
     result.body.errors = valid.errors;
   } else {
     result.status = 409;
     result.body.code = 409;
-    result.body.message = 'User exists';
+    result.body.message = 'Пользователь существует';
   }
   result.body = JSON.stringify(result.body);
   return result;

@@ -299,16 +299,16 @@ const closeNote = (event, note) => {
  * @returns {void}
  */
 const renderNoteTiles = () => {
-  localStorage
-    .getItem('keysArray')
-    ?.split(',')
-    .forEach((key) => {
+  const notesKeys = localStorage.getItem('keysArray');
+  if (notesKeys) {
+    notesKeys.split(',').forEach((key) => {
       const currentNote = JSON.parse(localStorage.getItem(key)),
         noteObject = new Note();
       noteObject.readNote(currentNote, key);
       notes[key] = noteObject;
       createTile(notes[key]);
     });
+  }
 };
 
 renderNoteTiles();

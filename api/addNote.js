@@ -17,7 +17,7 @@ const addNotes = async (body) => {
   if (!valid.isValid) {
     result.status = 422;
     result.body.code = 422;
-    result.body.message = 'Validation error';
+    result.body.message = 'Ошибка валидации';
     result.body.errors = valid.errors;
     return result;
   }

@@ -30,11 +30,21 @@ const login = async (body) => {
       result.body.message = 'User not exist';
     }
   } else {
-    result.status = 422;
-    result.body = {};
-    result.body.code = 422;
-    result.body.message = 'Validation error';
-    result.body.errors = valid.errors;
+    if (body.token) {
+      const userAuthData = await api.searchUser(body.token);
+      if (userAuthData) {
+        result.status = 200;
+        result.token = userAuthData.token;
+        result.body = {};
+        result.body.token = userAuthData.token;
+      }
+    } else {
+      result.status = 422;
+      result.body = {};
+      result.body.code = 422;
+      result.body.message = 'Ошибка валидации';
+      result.body.errors = valid.errors;
+    }
   }
   result.body = JSON.stringify(result.body);
   return result;

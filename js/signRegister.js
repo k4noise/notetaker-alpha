@@ -53,9 +53,11 @@ registerForm.addEventListener('submit', async (e) => {
   });
   const result = await response.json();
   if (result.code === 200) {
-    fetch('/api/login', {
+    const a = await fetch('/api/login', {
       method: 'POST',
+      body: JSON.stringify({}),
     });
+    console.log(await a.json());
   } else {
     document.querySelector('.register__notice').innerHTML = result.message;
   }

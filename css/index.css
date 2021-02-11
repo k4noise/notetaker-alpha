@@ -492,9 +492,6 @@ header {
   .note__preview-change-color {
     left: 4em;
   }
-  .note__preview-change-color, .note__preview-change-color .note__preview-close {
-    top: 6.5em;
-  }
 }
 @media (max-width: 640px) {
   .title {

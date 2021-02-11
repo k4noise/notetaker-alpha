@@ -26,10 +26,13 @@ const requestHandler = async (req, res) => {
   }
   body.url = req.url;
   const file = await router(body);
-  console.log(file);
   const headers = { 'Content-Type': file.mime || 'application/json' };
   if (file.token) {
-    headers['Set-Cookie'] = `token=${file.token}; Secure; HttpOnly`;
+    const expireCookieDate = new Date();
+    expireCookieDate.setDate(expireCookieDate.getDate() + 14);
+    headers['Set-Cookie'] = `token=${
+      file.token
+    };Expires=${expireCookieDate.toUTCString()};Path=/app; HttpOnly`;
   }
   res.writeHead(file.status, headers);
   res.end(file.body);
