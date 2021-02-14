@@ -17,7 +17,7 @@ const MIME_TYPES = {
  */
 const staticFiles = (fileName) => {
   const response = {},
-    filePath = `./${fileName}`,
+    filePath = `.${fileName}`,
     ext = path.extname(filePath).toLowerCase();
   response.mime = MIME_TYPES[ext] || 'application/octet-stream';
   const isExist = fs.existsSync(filePath);
