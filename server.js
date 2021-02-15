@@ -11,11 +11,11 @@ global.bcrypt = require('bcrypt');
 
 global.api = {};
 api.db = require('./api/database');
+api.searchUser = require('./api/searchUser');
 api.register = require('./api/register');
 api.login = require('./api/login');
 api.notes = require('./api/notes');
 api.addNotes = require('./api/addNote');
-api.searchUser = require('./api/searchUser');
 
 global.router = require('./api/routing');
 
@@ -38,6 +38,6 @@ const requestHandler = async (req, res) => {
   res.end(file.body);
 };
 
-http.createServer(requestHandler).listen(8666);
+http.createServer(requestHandler).listen(8125);
 
 process.stdout.write('Server running at http://localhost:8125/');

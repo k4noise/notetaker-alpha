@@ -3,7 +3,8 @@
  * @param {object} { token } Токен пользователя
  * @returns {any} Тело-ответ
  */
-const notes = async ({ token }) => {
+const notes = async (body) => {
+  const token = body.headers.cookie.split('=')[1];
   const user = await api.searchUser(token);
   const result = {};
   result.body = {};

@@ -75,7 +75,10 @@ registerForm.addEventListener('submit', async (e) => {
       registerForm.style.display = 'none';
       changeControls();
       document.querySelector('.navigation__login').innerHTML = b.login;
-    }, 1500);
+      if (b.code !== 200) {
+        alert('Повторите попытку входа еще раз');
+      }
+    }, 1000);
     changeControls();
   } else {
     document.querySelector('.register__notice').innerHTML = result.message;

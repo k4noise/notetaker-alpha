@@ -1,5 +1,17 @@
-const onlineMode = navigator.onLine;
-const token = document.cookie.token;
+let isConnected = false;
+
+(async () => {
+  const a = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+  const b = await a.json();
+  if (b.code === 200) {
+    document.querySelector('.navigation__login').innerHTML = b.login;
+    changeControls();
+    isConnected = true;
+  }
+})();
 
 const addNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
@@ -298,8 +310,16 @@ const closeNote = (event, note) => {
  * Рендерит плитки заметок при их наличии в localStorage
  * @returns {void}
  */
-const renderNoteTiles = () => {
-  const notesKeys = localStorage.getItem('keysArray');
+const renderNoteTiles = async () => {
+  let notesKeys;
+  if (isConnected) {
+    notesKeys = await JSON.parse(fetch('/api/notes', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    }).body);
+  } else {
+    notesKeys = localStorage.getItem('keysArray');
+  }
   if (notesKeys) {
     notesKeys.split(',').forEach((key) => {
       const currentNote = JSON.parse(localStorage.getItem(key)),

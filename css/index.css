@@ -96,6 +96,11 @@ header {
 .navigation__button .navigation__link:hover {
   text-decoration-color: transparent;
 }
+.navigation__login {
+  margin-left: auto;
+  font-family: TRY_Clother_Regular, serif;
+  font-size: 1.3rem;
+}
 
 .theme-changer {
   width: 50px;

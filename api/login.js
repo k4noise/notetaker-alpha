@@ -38,6 +38,7 @@ const login = async (body) => {
         result.status = 200;
         result.token = userAuthData.token;
         result.body = {};
+        result.body.code = 200;
         result.body.login = userAuthData.login;
         result.body.token = userAuthData.token;
       }
