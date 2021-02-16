@@ -1,18 +1,5 @@
 let isConnected = false;
 
-(async () => {
-  const a = await fetch('/api/login', {
-    method: 'POST',
-    body: JSON.stringify({}),
-  });
-  const b = await a.json();
-  if (b.code === 200) {
-    document.querySelector('.navigation__login').innerHTML = b.login;
-    changeControls();
-    isConnected = true;
-  }
-})();
-
 const addNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
   closeNotePreviewButton = document.querySelector('.note__preview-close'),
@@ -71,7 +58,7 @@ class Note {
     this.#key = key;
     this.header = noteObject.header || '';
     this.text = noteObject.text || '';
-    this.date = noteObject.date;
+    this.date = noteObject.date || noteObject['created_at'];
     this.color = noteObject.color;
   };
 
@@ -263,8 +250,21 @@ const changeColor = (event, note) => {
  * @param {string} key Ключ
  * @returns {void}
  */
-const saveNote = (key) => {
-  localStorage.setItem(key, JSON.stringify(notes[key]));
+const saveNote = async (key) => {
+  const note = notes[key];
+  if (note.header || note.text) {
+    if (isConnected) {
+      await fetch('/api/addNote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({ ...note }),
+      });
+    } else {
+      localStorage.setItem(key, JSON.stringify(note));
+    }
+  }
 };
 
 /**
@@ -312,17 +312,20 @@ const closeNote = (event, note) => {
  */
 const renderNoteTiles = async () => {
   let notesKeys;
+  let note;
   if (isConnected) {
-    notesKeys = await JSON.parse(fetch('/api/notes', {
+    note = await fetch('/api/notes', {
       method: 'POST',
       body: JSON.stringify({}),
-    }).body);
+    });
+    note = await note.json();
+    notesKeys = Object.keys(note);
   } else {
-    notesKeys = localStorage.getItem('keysArray');
+    notesKeys = localStorage.getItem('keysArray').split(',');
   }
   if (notesKeys) {
-    notesKeys.split(',').forEach((key) => {
-      const currentNote = JSON.parse(localStorage.getItem(key)),
+    notesKeys.forEach((key) => {
+      const currentNote = note[key] || JSON.parse(localStorage.getItem(key)),
         noteObject = new Note();
       noteObject.readNote(currentNote, key);
       notes[key] = noteObject;
@@ -331,6 +334,18 @@ const renderNoteTiles = async () => {
   }
 };
 
-renderNoteTiles();
-addNoteButton.addEventListener('click', createNote);
-notePreview.addEventListener('submit', (event) => event.preventDefault());
+(async () => {
+  const loginData = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+  const userData = await loginData.json();
+  if (userData.code === 200) {
+    document.querySelector('.navigation__login').innerHTML = userData.login;
+    changeControls();
+    isConnected = true;
+  }
+  renderNoteTiles();
+  addNoteButton.addEventListener('click', createNote);
+  notePreview.addEventListener('submit', (event) => event.preventDefault());
+})();

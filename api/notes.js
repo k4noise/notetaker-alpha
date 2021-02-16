@@ -12,7 +12,7 @@ const notes = async (body) => {
     const userNotesTableQuery = `create table if not exists ${user.login}(
     key varchar(10),
     color varchar(7),
-    created_at date,
+    date date,
     header varchar(50),
     text varchar(1024)
   )`;
