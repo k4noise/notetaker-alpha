@@ -1,7 +1,7 @@
 let isConnected = false;
 
-(async () => {
-  const a = await fetch('/api/login', {
+const tryLogIn = async () => {
+   const a = await fetch('/api/login', {
     method: 'POST',
     body: JSON.stringify({}),
   });
@@ -11,7 +11,10 @@ let isConnected = false;
     changeControls();
     isConnected = true;
   }
-})();
+}
+
+tryLogIn();
+
 
 const addNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
@@ -264,7 +267,18 @@ const changeColor = (event, note) => {
  * @returns {void}
  */
 const saveNote = (key) => {
-  localStorage.setItem(key, JSON.stringify(notes[key]));
+  const note = notes[key];
+  if (note.header || note.text) {
+    if (isConnected) {
+      fetch('/api/addNote', {
+        method: 'PATCH',
+        body: JSON.stringify(note)
+      }
+      })
+    } else {
+    localStorage.setItem(key, JSON.stringify(note));
+    }
+  }
 };
 
 /**
