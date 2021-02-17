@@ -259,7 +259,7 @@ const saveNote = async (key) => {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         },
-        body: JSON.stringify({ ...note }),
+        body: JSON.stringify({ ...kgiginote }),
       });
     } else {
       localStorage.setItem(key, JSON.stringify(note));
