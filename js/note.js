@@ -58,6 +58,14 @@ const dateGenerator = (date) =>
     hour12: false,
   });
 
+function createNoteClass = () => {
+ const note = {}
+ note.getNote = () => {
+   return {key: note.key, color: note.color, header: note.header, text: note.text, date: note.date}
+ }
+}
+
+
 class Note {
   #key = randomKey();
   #tile = null;
@@ -273,8 +281,7 @@ const saveNote = (key) => {
       fetch('/api/addNote', {
         method: 'PATCH',
         body: JSON.stringify(note)
-      }
-      })
+      }}
     } else {
     localStorage.setItem(key, JSON.stringify(note));
     }
