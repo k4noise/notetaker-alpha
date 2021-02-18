@@ -1,5 +1,20 @@
 let isConnected = false;
 
+const tryLogIn = async () => {
+  const a = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+  const b = await a.json();
+  if (b.code === 200) {
+    document.querySelector('.navigation__login').innerHTML = b.login;
+    changeControls();
+    isConnected = true;
+  }
+};
+
+tryLogIn();
+
 const addNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
   closeNotePreviewButton = document.querySelector('.note__preview-close'),
@@ -42,6 +57,19 @@ const dateGenerator = (date) =>
     hour12: false,
   });
 
+const createNoteClass = () => {
+  const note = {};
+};
+
+const getNoteObject = (note, key) => {
+  return {
+    key: key || note.key,
+    color: note.color,
+    header: note.header,
+    text: note.text,
+    date: note.date,
+  };
+};
 class Note {
   #key = randomKey();
   #tile = null;
@@ -250,16 +278,14 @@ const changeColor = (event, note) => {
  * @param {string} key Ключ
  * @returns {void}
  */
-const saveNote = async (key) => {
+
+const saveNote = (key) => {
   const note = notes[key];
   if (note.header || note.text) {
     if (isConnected) {
-      await fetch('/api/addNote', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify({ ...kgiginote }),
+      fetch('/api/addNote', {
+        method: 'PATCH',
+        body: JSON.stringify(getNoteObject(note, key)),
       });
     } else {
       localStorage.setItem(key, JSON.stringify(note));

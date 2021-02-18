@@ -15,7 +15,7 @@ api.searchUser = require('./api/searchUser');
 api.register = require('./api/register');
 api.login = require('./api/login');
 api.notes = require('./api/notes');
-api.addNotes = require('./api/addNote');
+api.modifyNote = require('./api/modifyNote');
 
 global.router = require('./api/routing');
 
