@@ -22,13 +22,8 @@ const modifyNote = async (body) => {
     `select * from ${login} where key = '${body.key}'`
   );
   if (isExists.rows[0]) {
-    const editNoteQuery = `update ${login} set color = $1, header = $2, text = $3 where key = $4`
-    api.db.query(editNoteQuery, [
-      body.color,
-      body.header,
-      body.text,
-      body.key,
-    ])
+    const editNoteQuery = `update ${login} set color = $1, header = $2, text = $3 where key = $4`;
+    api.db.query(editNoteQuery, [body.color, body.header, body.text, body.key]);
   } else {
     const addNoteQuery = `insert into ${body.login} values (
       $1, $2, $3, $4, $5

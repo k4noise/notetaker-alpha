@@ -1,19 +1,29 @@
-const routes = {
-  '*': staticFiles,
-  '/api/register': api.register,
-  '/api/login': api.login,
-  '/api/notes': api.notes,
-  '/api/addNote': api.modifyNote,
+const route = {};
+
+const addRoute = (routeName, routeCallback, routeParams = null) => {
+  route[routeName] = {
+    callback: routeCallback,
+    params: routeParams,
+  };
 };
 const router = async (body) => {
-  let result = routes[body.url] || routes['*'](body.url);
-  if (typeof result === 'function') {
-    result = await result(body);
+  let callback, routeParams;
+  if (route[body.url]) {
+    callback = route[body.url].callback;
+    routeParams = route[body.url].params;
+  } else {
+    callback = route['*'].callback;
+    routeParams = body.url;
   }
-  return result;
+  return await callback(routeParams || body);
 };
 
-routes['/'] = (async () => await router({ url: '/index.html' }))();
-routes['/app'] = (async () => await router({ url: '/app.html' }))();
+addRoute('*', staticFiles);
+addRoute('/api/register', api.register);
+addRoute('/api/login', api.login);
+addRoute('/api/notes', api.notes);
+addRoute('/api/addNote', api.modifyNote);
+addRoute('/', staticFiles, '/index.html');
+addRoute('/app', staticFiles, '/app.html');
 
 module.exports = router;
