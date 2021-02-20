@@ -11,7 +11,6 @@ const dataReceiver = async (request) => {
     }
   });
   const body = JSON.parse(chunks);
-  body.headers = request.headers;
   return body || '';
 };
 

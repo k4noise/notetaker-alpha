@@ -31,8 +31,8 @@ const login = async (body) => {
       result.body.message = 'User not exist';
     }
   } else {
-    if (body.headers.cookie) {
-      const token = body.headers.cookie.split('=')[1];
+    if (body.hasOwnProperty('cookie')) {
+      const token = body.cookie;
       const userAuthData = await api.searchUser(token);
       if (userAuthData) {
         result.status = 200;

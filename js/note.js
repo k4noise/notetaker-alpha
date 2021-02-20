@@ -340,10 +340,7 @@ const renderNoteTiles = async () => {
   let notesKeys;
   let note;
   if (isConnected) {
-    note = await fetch('/api/notes', {
-      method: 'POST',
-      body: JSON.stringify({}),
-    });
+    note = await fetch('/api/notes');
     note = await note.json();
     notesKeys = Object.keys(note);
   } else {

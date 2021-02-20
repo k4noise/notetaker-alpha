@@ -5,7 +5,7 @@
  */
 const modifyNote = async (body) => {
   const result = {};
-  const user = await api.searchUser(body.headers.cookie.split('=')[1]);
+  const user = await api.searchUser(body.cookie);
   const login = user.login;
   result.body = {};
   const valid = isValidObject(body, ['key', 'color', 'date', 'header', 'text']);

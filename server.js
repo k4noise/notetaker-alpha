@@ -25,6 +25,9 @@ const requestHandler = async (req, res) => {
     body = await dataReceiver(req);
   }
   body.url = req.url;
+  if (req.headers.cookie) {
+    body.cookie = req.headers.cookie.split('=')[1];
+  }
   const file = await router(body);
   const headers = { 'Content-Type': file.mime || 'application/json' };
   if (file.token) {
