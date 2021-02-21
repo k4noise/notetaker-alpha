@@ -11,6 +11,18 @@ setTimeout(() => {
 }, 200);
 
 /**
+ * Используется для скрытия и отображения навигации
+ * navigation - index.html
+ * controlsNavigation - app.html
+ * @returns {void}
+ */
+const toggleNavigation = () => {
+  navigation.style.display =
+    navigation.style.display === 'flex' ? 'none' : 'flex';
+};
+
+menuShowIcon.addEventListener('click', toggleNavigation);
+/**
  * Читает данные из localStorage и при их наличии задает цвет фону и тексту
  * @param {string} textColorVariable Имя переменной (включая два дефиса), обозначающей цвет текста в CSS
  * @param {string} backgroundColorVariable Имя переменной (включая два дефиса), обозначающей цвет фона в CSS
