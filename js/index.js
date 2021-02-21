@@ -1,4 +1,3 @@
-'use strict';
 const textColorVariable = '--main-text-color',
   backgroundColorVariable = '--main-background-color',
   themeChangerButton = document.querySelector('.theme-changer'),

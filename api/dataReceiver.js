@@ -6,12 +6,9 @@
 const dataReceiver = async (request) => {
   let chunks = '';
   await request.on('data', (chunk) => {
-    if (chunk) {
       chunks += chunk.toString();
-    }
   });
-  const body = JSON.parse(chunks);
-  return body || '';
+  return JSON.parse(chunks) || '';
 };
 
 module.exports = dataReceiver;

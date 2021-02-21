@@ -1,4 +1,3 @@
-'use strict';
 let lastOpenedAccordeon = null;
 const accordeonElements = document.querySelectorAll('.faq__answer');
 

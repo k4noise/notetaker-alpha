@@ -252,13 +252,15 @@ header {
 
 .note__preview {
   visibility: hidden;
-  opacity: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
+  top: 50%;
+  left: 50%;
   z-index: 15;
+  position: fixed;
+  width: min(1200px, 100vw);
+  height: min(900px, 100vh);
+  border-radius: 20px;
+  opacity: 0;
+  transform: translate(-50%, -50%);
 }
 .note__preview-header {
   width: 80%;
