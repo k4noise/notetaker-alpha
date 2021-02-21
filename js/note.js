@@ -344,11 +344,12 @@ const renderNoteTiles = async () => {
     note = await note.json();
     notesKeys = Object.keys(note);
   } else {
-    notesKeys = localStorage.getItem('keysArray').split(',');
+    const keysArray = localStorage.getItem('keysArray');
+    notesKeys = keysArray.split(',');
   }
   if (notesKeys) {
     notesKeys.forEach((key) => {
-      const currentNote = note[key] || JSON.parse(localStorage.getItem(key)),
+      const currentNote = notes[key] || JSON.parse(localStorage.getItem(key)),
         noteObject = new Note();
       noteObject.readNote(currentNote, key);
       notes[key] = noteObject;

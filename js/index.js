@@ -22,6 +22,7 @@ const toggleNavigation = () => {
 };
 
 menuShowIcon.addEventListener('click', toggleNavigation);
+
 /**
  * Читает данные из localStorage и при их наличии задает цвет фону и тексту
  * @param {string} textColorVariable Имя переменной (включая два дефиса), обозначающей цвет текста в CSS

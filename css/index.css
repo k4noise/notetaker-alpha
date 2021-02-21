@@ -517,6 +517,18 @@ header {
     padding-bottom: 2em;
   }
 
+  .notes {
+    width: 200px;
+    height: 200px;
+  }
+  .notes__wrapper {
+    grid-template-columns: 1fr;
+  }
+  .notes-add {
+    width: 240px;
+    height: 240px;
+  }
+
   .note__preview-header {
     width: 81vw;
     margin-left: 0.8em;
