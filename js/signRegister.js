@@ -1,17 +1,19 @@
 const signInButton = document.querySelector('.navigation__button-sign-in'),
   registerButton = document.querySelector('.navigation__button-registration'),
+  logOutButton = document.querySelector('.navigation__logout'),
   signInForm = document.forms.signin,
   registerForm = document.forms.register,
   closeSignInForm = document.querySelector('.signin__close'),
   closeRegisterForm = document.querySelector('.register__close');
 
-const closeForm = (e) => {
-  e.target.closest('form').style.display = 'none';
+const closeForm = (event) => {
+  event.target.closest('form').style.display = 'none';
 };
 
 const changeControls = () => {
   signInButton.style.display = 'none';
   registerButton.style.display = 'none';
+  logOutButton.style.display = 'block';
 };
 
 closeSignInForm.addEventListener('click', closeForm);
@@ -45,7 +47,6 @@ signInForm.addEventListener('submit', async (e) => {
     setTimeout(() => {
       signInForm.style.display = 'none';
       changeControls();
-      console.log(result);
       document.querySelector('.navigation__login').innerHTML =
         signInForm.elements.signin_login.value;
     }, 1500);
@@ -83,4 +84,9 @@ registerForm.addEventListener('submit', async (e) => {
   } else {
     document.querySelector('.register__notice').innerHTML = result.message;
   }
+});
+
+logOutButton.addEventListener('click', () => {
+  fetch('/api/logout');
+  window.location.reload();
 });

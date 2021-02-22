@@ -21,6 +21,7 @@ const router = async (body) => {
 addRoute('*', staticFiles);
 addRoute('/api/register', api.register);
 addRoute('/api/login', api.login);
+addRoute('/api/logout', api.logout);
 addRoute('/api/notes', api.notes);
 addRoute('/api/addNote', api.modifyNote);
 addRoute('/', staticFiles, '/index.html');

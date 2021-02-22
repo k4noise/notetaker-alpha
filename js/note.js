@@ -349,7 +349,7 @@ const renderNoteTiles = async () => {
   }
   if (notesKeys) {
     notesKeys.forEach((key) => {
-      const currentNote = notes[key] || JSON.parse(localStorage.getItem(key)),
+      const currentNote = note[key] || JSON.parse(localStorage.getItem(key)),
         noteObject = new Note();
       noteObject.readNote(currentNote, key);
       notes[key] = noteObject;

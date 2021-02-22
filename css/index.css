@@ -101,6 +101,11 @@ header {
   font-family: TRY_Clother_Regular, serif;
   font-size: 1.3rem;
 }
+.navigation__logout {
+  border: none;
+  display: none;
+  background: none;
+}
 
 .theme-changer {
   width: 50px;

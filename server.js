@@ -14,6 +14,7 @@ api.db = require('./api/database');
 api.searchUser = require('./api/searchUser');
 api.register = require('./api/register');
 api.login = require('./api/login');
+api.logout = require('./api/logout');
 api.notes = require('./api/notes');
 api.modifyNote = require('./api/modifyNote');
 
@@ -24,18 +25,14 @@ const requestHandler = async (req, res) => {
   if (req.method !== 'GET') {
     body = await dataReceiver(req);
   }
-  body.url = req.url;
   if (req.headers.cookie) {
     body.cookie = req.headers.cookie.split('=')[1];
   }
+  body.url = req.url;
   const file = await router(body);
   const headers = { 'Content-Type': file.mime || 'application/json' };
-  if (file.token) {
-    const expireCookieDate = new Date();
-    expireCookieDate.setDate(expireCookieDate.getDate() + 14);
-    headers['Set-Cookie'] = `token=${
-      file.token
-    };Expires=${expireCookieDate.toUTCString()}; Path=/; HttpOnly`;
+  if (file.header) {
+    headers['Set-Cookie'] = file.header;
   }
   res.writeHead(file.status, headers);
   res.end(file.body);
