@@ -38,13 +38,8 @@ const login = async (body) => {
       const token = body.cookie;
       const userAuthData = await api.searchUser(token);
       if (userAuthData) {
-        const expireCookieDate = new Date();
-        expireCookieDate.setDate(expireCookieDate.getDate() + 14);
         result.status = 200;
         result.token = userAuthData.token;
-        result.header = `token=${
-          result.token
-        };Expires=${expireCookieDate.toUTCString()}; Path=/; HttpOnly`;
         result.body.code = 200;
         result.body.login = userAuthData.login;
         result.body.token = userAuthData.token;
@@ -57,7 +52,6 @@ const login = async (body) => {
     }
   }
   result.body = JSON.stringify(result.body);
-  console.log(result);
   return result;
 };
 

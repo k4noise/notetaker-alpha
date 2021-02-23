@@ -17,6 +17,8 @@ api.login = require('./api/login');
 api.logout = require('./api/logout');
 api.notes = require('./api/notes');
 api.modifyNote = require('./api/modifyNote');
+api.deleteNote = require('./api/deleteNote');
+api.createNote = require('./api/createNote');
 
 global.router = require('./api/routing');
 

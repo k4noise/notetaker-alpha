@@ -299,9 +299,18 @@ const saveNote = (key) => {
  * @returns {void}
  */
 const deleteNote = (key) => {
-  localStorage.removeItem(key);
-  Reflect.deleteProperty(notes, key);
-  localStorage.setItem('keysArray', Object.keys(notes));
+  if (isConnected) {
+    fetch('/api/deleteNote', {
+      method: 'DELETE',
+      body: JSON.stringify({
+        key,
+      }),
+    });
+  } else {
+    localStorage.removeItem(key);
+    Reflect.deleteProperty(notes, key);
+    localStorage.setItem('keysArray', Object.keys(notes));
+  }
 };
 
 /**
@@ -325,7 +334,12 @@ const closeNote = (event, note) => {
   } else if (tile == null) {
     createTile(note);
     tile = note.getTile();
-    localStorage.setItem('keysArray', Object.keys(notes));
+    isConnected
+      ? fetch('/api/createNote', {
+          method: 'POST',
+          body: JSON.stringify(note),
+        })
+      : localStorage.setItem('keysArray', Object.keys(notes));
   }
 
   const noteTileHeader = tile.querySelector('.notes__note-header');
