@@ -1,20 +1,5 @@
 let isConnected = false;
 
-// const tryLogin = async () => {
-//     const a = await fetch('/api/login', {
-//       method: 'POST',
-//       body: JSON.stringify({}),
-//     });
-//     const b = await a.json();
-//     if (b.code === 200) {
-//       document.querySelector('.navigation__login').innerHTML = b.login;
-//       changeControls();
-//       isConnected = true;
-//     }
-// };
-
-// tryLogin();
-
 const modifyNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
   closeNotePreviewButton = document.querySelector('.note__preview-close'),
