@@ -1,21 +1,21 @@
 let isConnected = false;
 
-const tryLogIn = async () => {
-  const a = await fetch('/api/login', {
-    method: 'POST',
-    body: JSON.stringify({}),
-  });
-  const b = await a.json();
-  if (b.code === 200) {
-    document.querySelector('.navigation__login').innerHTML = b.login;
-    changeControls();
-    isConnected = true;
-  }
-};
+// const tryLogin = async () => {
+//     const a = await fetch('/api/login', {
+//       method: 'POST',
+//       body: JSON.stringify({}),
+//     });
+//     const b = await a.json();
+//     if (b.code === 200) {
+//       document.querySelector('.navigation__login').innerHTML = b.login;
+//       changeControls();
+//       isConnected = true;
+//     }
+// };
 
-tryLogIn();
+// tryLogin();
 
-const addNoteButton = document.querySelector('.notes__note-add'),
+const modifyNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
   closeNotePreviewButton = document.querySelector('.note__preview-close'),
   changeColorIcon = document.querySelector('.note__preview-change-color'),
@@ -187,7 +187,7 @@ const createTile = (note) => {
           />
         </button>`;
 
-  addNoteButton.after(tile);
+  modifyNoteButton.after(tile);
   note.setTile(tile);
   tile.addEventListener('click', (event) => tileClicks(event, note));
 };
@@ -283,7 +283,7 @@ const saveNote = (key) => {
   const note = notes[key];
   if (note.header || note.text) {
     if (isConnected) {
-      fetch('/api/addNote', {
+      fetch('/api/modifyNote', {
         method: 'PATCH',
         body: JSON.stringify(getNoteObject(note, key)),
       });
@@ -335,10 +335,7 @@ const closeNote = (event, note) => {
     createTile(note);
     tile = note.getTile();
     isConnected
-      ? fetch('/api/createNote', {
-          method: 'POST',
-          body: JSON.stringify(note),
-        })
+      ? saveNote()
       : localStorage.setItem('keysArray', Object.keys(notes));
   }
 
@@ -356,6 +353,7 @@ const renderNoteTiles = async () => {
   if (isConnected) {
     note = await fetch('/api/notes');
     note = await note.json();
+    note = note.notes;
     notesKeys = Object.keys(note);
   } else {
     const keysArray = localStorage.getItem('keysArray');
@@ -363,7 +361,9 @@ const renderNoteTiles = async () => {
   }
   if (notesKeys) {
     notesKeys.forEach((key) => {
-      const currentNote = note[key] || JSON.parse(localStorage.getItem(key)),
+      const currentNote = note
+          ? note[key]
+          : JSON.parse(localStorage.getItem(key)),
         noteObject = new Note();
       noteObject.readNote(currentNote, key);
       notes[key] = noteObject;
@@ -384,6 +384,6 @@ const renderNoteTiles = async () => {
     isConnected = true;
   }
   renderNoteTiles();
-  addNoteButton.addEventListener('click', createNote);
+  modifyNoteButton.addEventListener('click', createNote);
   notePreview.addEventListener('submit', (event) => event.preventDefault());
 })();

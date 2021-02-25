@@ -23,7 +23,7 @@ addRoute('/api/register', api.register);
 addRoute('/api/login', api.login);
 addRoute('/api/logout', api.logout);
 addRoute('/api/notes', api.notes);
-addRoute('/api/addNote', api.modifyNote);
+addRoute('/api/modifyNote', api.modifyNote);
 addRoute('/api/deleteNote', api.deleteNote);
 addRoute('/api/createNote', api.createNote);
 addRoute('/', staticFiles, '/index.html');

@@ -1,6 +1,6 @@
 const createNote = async (body) => {
   const result = {};
-  const user = await api.searchUser(body.cookie);
+  const user = await api.searchUser(body.cookieToken);
   const login = user.login;
   const valid = isValidObject(body, ['key', 'color', 'date', 'header', 'text']);
   if (valid) {

@@ -4,7 +4,7 @@
  * @returns {any} Тело-ответ
  */
 const notes = async (body) => {
-  const token = body.cookie;
+  const token = body.cookieToken;
   const user = await api.searchUser(token);
   const result = {};
   result.body = {};
@@ -21,8 +21,9 @@ const notes = async (body) => {
     const note = await api.db.query(noteQuery);
     if (note.rowCount > 0) {
       result.status = 200;
+      result.body.notes = {};
       for (const noteObject of note.rows) {
-        result.body[noteObject.key] = noteObject;
+        result.body.notes[noteObject.key] = noteObject;
       }
     } else {
       result.status = 404;

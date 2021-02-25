@@ -1,6 +1,6 @@
 const deleteNote = async (body) => {
   const result = {};
-  const user = await api.searchUser(body.cookie);
+  const user = await api.searchUser(body.cookieToken);
   const login = user.login;
   const isExists = await api.db.query(
     `select * from ${login} where key = '${body.key}'`

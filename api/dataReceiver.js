@@ -6,7 +6,7 @@
 const dataReceiver = async (request) => {
   let chunks = '';
   await request.on('data', (chunk) => {
-      chunks += chunk.toString();
+    chunks += chunk.toString();
   });
   return JSON.parse(chunks) || '';
 };

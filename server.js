@@ -28,7 +28,7 @@ const requestHandler = async (req, res) => {
     body = await dataReceiver(req);
   }
   if (req.headers.cookie) {
-    body.cookie = req.headers.cookie.split('=')[1];
+    body.cookieToken = req.headers.cookie.split('=')[1];
   }
   body.url = req.url;
   const file = await router(body);
