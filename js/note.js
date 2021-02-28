@@ -9,6 +9,16 @@ const modifyNoteButton = document.querySelector('.notes__note-add'),
 
 let autoSaveTimer;
 
+const getNotesFromLocalStorage = () => {
+  const notes = {};
+  const keys = Object.keys(localStorage).filter(
+    (key) =>
+      key !== 'textColor' && key !== 'backgroundColor' && key !== 'keysArray'
+  );
+  keys.forEach((key) => (notes[key] = localStorage[key]));
+  return notes;
+};
+
 /**
  * Генерирует приятный рандомный цвет
  * @returns {string} Цвет в hex формате
@@ -342,7 +352,7 @@ const renderNoteTiles = async () => {
     notesKeys = Object.keys(note);
   } else {
     const keysArray = localStorage.getItem('keysArray');
-    notesKeys = keysArray.split(',');
+    notesKeys = keysArray && keysArray.split(',');
   }
   if (notesKeys) {
     notesKeys.forEach((key) => {
