@@ -19,6 +19,18 @@ const getNotesFromLocalStorage = () => {
   return notes;
 };
 
+const registerServiceWorker = () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/sw.js', { scope: '/app' })
+      .then(() => {
+        console.info('Service Worker registered successfully.');
+      })
+      .catch((error) => {
+        throw new Error('Service Worker registration failed:', error);
+      });
+  }
+};
 /**
  * Генерирует приятный рандомный цвет
  * @returns {string} Цвет в hex формате
@@ -381,4 +393,5 @@ const renderNoteTiles = async () => {
   renderNoteTiles();
   modifyNoteButton.addEventListener('click', createNote);
   notePreview.addEventListener('submit', (event) => event.preventDefault());
+  registerServiceWorker();
 })();
