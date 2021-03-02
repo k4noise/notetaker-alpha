@@ -28,7 +28,7 @@ self.addEventListener('fetch', (e) => {
       return (
         r ||
         fetch(e.request).then((response) => {
-          return caches.open(cacheName).then((cache) => {
+          return caches.open('notetaker').then((cache) => {
             console.log(
               '[Service Worker] Caching new resource: ' + e.request.url
             );
