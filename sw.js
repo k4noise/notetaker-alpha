@@ -6,6 +6,7 @@ self.addEventListener('install', (e) => {
       // добавляем все URL ресурсов, которые хотим закэшировать
       return cache.addAll([
         '/app',
+        'sw.js',
         'css/index.css',
         'js/index.js',
         'js/note.js',
