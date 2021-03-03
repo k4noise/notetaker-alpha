@@ -522,14 +522,14 @@ header {
     padding-bottom: 2em;
   }
 
-  .notes {
-    width: 200px;
-    height: 200px;
-  }
   .notes__wrapper {
     grid-template-columns: 1fr;
   }
-  .notes-add {
+  .notes__note {
+    width: 200px;
+    height: 200px;
+  }
+  .notes__note-add {
     width: 240px;
     height: 240px;
   }
