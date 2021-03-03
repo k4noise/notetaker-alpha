@@ -40,6 +40,4 @@ const requestHandler = async (req, res) => {
   res.end(file.body);
 };
 
-http.createServer(requestHandler).listen(5432);
-
-process.stdout.write('Server running at http://localhost:8125/');
+http.createServer(requestHandler).listen(process.env.PORT || 8125);
