@@ -5,6 +5,19 @@ const textColorVariable = '--main-text-color',
   navigation = document.querySelector('.navigation'),
   root = document.documentElement;
 
+const registerServiceWorker = () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(() => {
+        console.info('Service Worker registered successfully.');
+      })
+      .catch((error) => {
+        throw new Error('Service Worker registration failed:', error);
+      });
+  }
+};
+
 // Используется для того, чтобы фон при загрузке страницы не анимировался, а анимировался только при изменении
 setTimeout(() => {
   document.body.classList.add('animate');
@@ -18,7 +31,7 @@ setTimeout(() => {
  */
 const toggleNavigation = () => {
   navigation.style.display =
-    navigation.style.display === 'flex' ? 'none' : 'flex';
+  navigation.style.display === 'flex' ? 'none' : 'flex';
 };
 
 menuShowIcon.addEventListener('click', toggleNavigation);
@@ -31,7 +44,7 @@ menuShowIcon.addEventListener('click', toggleNavigation);
  */
 const setTheme = (textColorVariable, backgroundColorVariable) => {
   const textColor = localStorage.getItem('textColor'),
-    backgroundColor = localStorage.getItem('backgroundColor');
+  backgroundColor = localStorage.getItem('backgroundColor');
   if (textColor && backgroundColor) {
     root.style.setProperty(textColorVariable, textColor);
     root.style.setProperty(backgroundColorVariable, backgroundColor);
@@ -46,11 +59,11 @@ const setTheme = (textColorVariable, backgroundColorVariable) => {
  */
 const changeTheme = (textColorVariable, backgroundColorVariable) => {
   let textColor = getComputedStyle(document.documentElement)
-      .getPropertyValue(textColorVariable)
-      .trim(),
-    backgroundColor = getComputedStyle(document.documentElement)
-      .getPropertyValue(backgroundColorVariable)
-      .trim();
+  .getPropertyValue(textColorVariable)
+  .trim(),
+  backgroundColor = getComputedStyle(document.documentElement)
+  .getPropertyValue(backgroundColorVariable)
+  .trim();
   [textColor, backgroundColor] = [backgroundColor, textColor];
   root.style.setProperty(textColorVariable, textColor);
   root.style.setProperty(backgroundColorVariable, backgroundColor);
@@ -62,5 +75,6 @@ const changeTheme = (textColorVariable, backgroundColorVariable) => {
 setTheme(textColorVariable, backgroundColorVariable);
 
 themeChangerButton.addEventListener('click', () =>
-  changeTheme(textColorVariable, backgroundColorVariable)
+changeTheme(textColorVariable, backgroundColorVariable)
 );
+registerServiceWorker();
