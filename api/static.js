@@ -4,8 +4,8 @@ const MIME_TYPES = {
   '.css': 'text/css',
   '.json': 'application/json',
   '.png': 'image/png',
+  '.woff': 'font/woff',
   '.jpg': 'image/jpg',
-  '.woff': 'application/font-woff',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
 };
@@ -16,7 +16,6 @@ const MIME_TYPES = {
  * @returns {object} Содержит MIME-тип и буфер прочитанного файла
  */
 const staticFiles = (fileName) => {
-  console.log(fileName);
   const response = {},
     filePath = `.${fileName}`,
     ext = path.extname(filePath).toLowerCase();

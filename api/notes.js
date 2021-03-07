@@ -21,10 +21,7 @@ const notes = async (body) => {
     const note = await api.db.query(noteQuery);
     if (note.rowCount > 0) {
       result.status = 200;
-      result.body.notes = {};
-      for (const noteObject of note.rows) {
-        result.body.notes[noteObject.key] = noteObject;
-      }
+      result.body.notes = note.rows;
     } else {
       result.status = 404;
       result.body.status = 404;

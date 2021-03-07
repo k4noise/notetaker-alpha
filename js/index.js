@@ -31,7 +31,7 @@ setTimeout(() => {
  */
 const toggleNavigation = () => {
   navigation.style.display =
-  navigation.style.display === 'flex' ? 'none' : 'flex';
+    navigation.style.display === 'flex' ? 'none' : 'flex';
 };
 
 menuShowIcon.addEventListener('click', toggleNavigation);
@@ -44,7 +44,7 @@ menuShowIcon.addEventListener('click', toggleNavigation);
  */
 const setTheme = (textColorVariable, backgroundColorVariable) => {
   const textColor = localStorage.getItem('textColor'),
-  backgroundColor = localStorage.getItem('backgroundColor');
+    backgroundColor = localStorage.getItem('backgroundColor');
   if (textColor && backgroundColor) {
     root.style.setProperty(textColorVariable, textColor);
     root.style.setProperty(backgroundColorVariable, backgroundColor);
@@ -59,11 +59,11 @@ const setTheme = (textColorVariable, backgroundColorVariable) => {
  */
 const changeTheme = (textColorVariable, backgroundColorVariable) => {
   let textColor = getComputedStyle(document.documentElement)
-  .getPropertyValue(textColorVariable)
-  .trim(),
-  backgroundColor = getComputedStyle(document.documentElement)
-  .getPropertyValue(backgroundColorVariable)
-  .trim();
+      .getPropertyValue(textColorVariable)
+      .trim(),
+    backgroundColor = getComputedStyle(document.documentElement)
+      .getPropertyValue(backgroundColorVariable)
+      .trim();
   [textColor, backgroundColor] = [backgroundColor, textColor];
   root.style.setProperty(textColorVariable, textColor);
   root.style.setProperty(backgroundColorVariable, backgroundColor);
@@ -75,6 +75,6 @@ const changeTheme = (textColorVariable, backgroundColorVariable) => {
 setTheme(textColorVariable, backgroundColorVariable);
 
 themeChangerButton.addEventListener('click', () =>
-changeTheme(textColorVariable, backgroundColorVariable)
+  changeTheme(textColorVariable, backgroundColorVariable)
 );
-registerServiceWorker();
+// registerServiceWorker();

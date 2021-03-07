@@ -1,5 +1,19 @@
 let isConnected = false;
 
+import idb from './indexedDB.js';
+// idbNotes.add({
+//     'key': '1308335d6',
+//     'color': '#c1d49a',
+//     'created_at': '2021-02-15T19:00:00.000Z',
+//     'header': 'MyLovelyHeader',
+//     'text': 'My lovely text',
+//   });
+
+const openTransaction = (method) => {
+  let transaction = idb.transaction('notes', method);
+  return transaction.objectStore('notes');
+};
+
 const modifyNoteButton = document.querySelector('.notes__note-add'),
   notePreview = document.querySelector('.note__preview'),
   closeNotePreviewButton = document.querySelector('.note__preview-close'),
@@ -8,17 +22,6 @@ const modifyNoteButton = document.querySelector('.notes__note-add'),
   notePreviewText = document.querySelector('.note__preview-text');
 
 let autoSaveTimer;
-
-const getNotesFromLocalStorage = () => {
-  const notes = {};
-  const keys = Object.keys(localStorage).filter(
-    (key) =>
-      key !== 'textColor' && key !== 'backgroundColor' && key !== 'keysArray'
-  );
-  keys.forEach((key) => (notes[key] = localStorage[key]));
-  return notes;
-};
-
 
 /**
  * Генерирует приятный рандомный цвет
@@ -344,43 +347,36 @@ const closeNote = (event, note) => {
  * @returns {void}
  */
 const renderNoteTiles = async () => {
-  let notesKeys;
   let note;
   if (isConnected) {
     note = await fetch('/api/notes');
     note = await note.json();
     note = note.notes;
-    notesKeys = Object.keys(note);
   } else {
-    const keysArray = localStorage.getItem('keysArray');
-    notesKeys = keysArray && keysArray.split(',');
+    note = await openTransaction('readonly').getAll();
   }
-  if (notesKeys) {
-    notesKeys.forEach((key) => {
-      const currentNote = note
-          ? note[key]
-          : JSON.parse(localStorage.getItem(key)),
-        noteObject = new Note();
-      noteObject.readNote(currentNote, key);
+  if (note) {
+    note.forEach((noteObj) => {
+      const noteObject = new Note(),
+        key = noteObj.key;
+      noteObject.readNote(noteObj, key);
       notes[key] = noteObject;
       createTile(notes[key]);
     });
   }
 };
 
-(async () => {
-  const loginData = await fetch('/api/login', {
-    method: 'POST',
-    body: JSON.stringify({}),
-  });
-  const userData = await loginData.json();
-  if (userData.code === 200) {
-    document.querySelector('.navigation__login').innerHTML = userData.login;
-    changeControls();
-    isConnected = true;
-  }
-  renderNoteTiles();
-  modifyNoteButton.addEventListener('click', createNote);
-  notePreview.addEventListener('submit', (event) => event.preventDefault());
-  // registerServiceWorker();
-})();
+const loginData = await fetch('/api/login', {
+  method: 'POST',
+  body: JSON.stringify({}),
+});
+
+const userData = await loginData.json();
+if (userData.code === 200) {
+  document.querySelector('.navigation__login').innerHTML = userData.login;
+  changeControls();
+  isConnected = true;
+}
+renderNoteTiles();
+modifyNoteButton.addEventListener('click', createNote);
+notePreview.addEventListener('submit', (event) => event.preventDefault());
