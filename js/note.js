@@ -1,17 +1,20 @@
 let isConnected = false;
 
 import idb from './indexedDB.js';
-// idbNotes.add({
-//     'key': '1308335d6',
-//     'color': '#c1d49a',
-//     'created_at': '2021-02-15T19:00:00.000Z',
-//     'header': 'MyLovelyHeader',
-//     'text': 'My lovely text',
-//   });
 
 const openTransaction = (method) => {
   let transaction = idb.transaction('notes', method);
   return transaction.objectStore('notes');
+};
+
+const addNoteIdb = (note) => {
+  const store = openTransaction('readwrite');
+  store.put(note);
+};
+
+const deleteNoteIdb = (key) => {
+  const store = openTransaction('readwrite');
+  store.delete(key);
 };
 
 const modifyNoteButton = document.querySelector('.notes__note-add'),
@@ -56,10 +59,6 @@ const dateGenerator = (date) =>
     hour12: false,
   });
 
-const createNoteClass = () => {
-  const note = {};
-};
-
 const getNoteObject = (note, key) => {
   return {
     key: key || note.key,
@@ -69,77 +68,7 @@ const getNoteObject = (note, key) => {
     date: note.date,
   };
 };
-class Note {
-  #key = randomKey();
-  #tile = null;
-  color = randomColor();
-  date = new Date();
 
-  /**
-   * Создает объект заметки из существующего объекта данных заметки
-   * @param {object} noteObject Объект заметки
-   * @param {string} key Ключ заметки
-   * @returns {void}
-   */
-  readNote = (noteObject, key) => {
-    this.#key = key;
-    this.header = noteObject.header || '';
-    this.text = noteObject.text || '';
-    this.date = noteObject.date || noteObject['created_at'];
-    this.color = noteObject.color;
-  };
-
-  /**
-   * Геттер для приватного свойства #tile
-   * @returns {object} Плитка заметки
-   */
-  getTile = () => this.#tile;
-
-  /**
-   * Геттер для приватного свойства #key
-   * @returns {string} Ключ заметки
-   */
-  getKey = () => this.#key;
-
-  /**
-   * Сеттер для приватного свойства #tile
-   * @param {object} tile Плитка заметки
-   * @returns {void}
-   */
-  setTile = (tile) => {
-    this.#tile = tile;
-  };
-
-  /**
-   * Сеттер для публичного свойства color
-   * @param {string} color Новый цвет
-   * @returns {void}
-   */
-  setColor = (color) => {
-    this.color = color;
-  };
-
-  /**
-   * Сеттер для публичного свойства text
-   * @param {string} text Новый текст
-   * @returns {void}
-   */
-  setText = (text) => {
-    this.text = text;
-  };
-
-  /**
-   * Сеттер для публичного свойства text
-   * @param {string} header Новый текст
-   * @returns {void}
-   */
-  setHeader = (header) => {
-    this.header = header;
-  };
-}
-
-// Объект для хранения объектов заметок в следующем виде:
-// key: { Note object }
 const notes = {};
 
 /**
@@ -147,12 +76,16 @@ const notes = {};
  * @returns {void}
  */
 const createNote = () => {
-  const currentNote = new Note(),
-    key = currentNote.getKey();
+  const currentNote = {
+    key: randomKey(),
+    color: randomColor(),
+    date: new Date(),
+  };
+  const key = currentNote.key;
   notes[key] = currentNote;
   showNote(currentNote);
   saveNote(key);
-  localStorage.setItem('keysArray', Object.keys(notes));
+  addNoteIdb(getNoteObject(currentNote));
 };
 
 /**
@@ -161,10 +94,9 @@ const createNote = () => {
  * @returns {void}
  */
 const createTile = (note) => {
-  const key = note.getKey(),
-    tile = document.createElement('div');
+  const tile = document.createElement('div');
   tile.classList.add('notes__note');
-  tile.dataset.key = key;
+  tile.dataset.key = note.key;
   tile.style.backgroundColor = note.color;
   tile.innerHTML = `
         <button class="notes__note-button">
@@ -177,7 +109,9 @@ const createTile = (note) => {
           <h3 class="subtitle notes__note-header">${
             note.header || 'Без заголовка'
           }</h3>
-          <span class="notes__note-date">${dateGenerator(note.date)}</span>
+          <span class="notes__note-date">${dateGenerator(
+            note.date || note['created_at']
+          )}</span>
         <button class="notes__note-button">
           <img
           src="./img/edit.svg"
@@ -187,7 +121,7 @@ const createTile = (note) => {
         </button>`;
 
   modifyNoteButton.after(tile);
-  note.setTile(tile);
+  note.tile = tile;
   tile.addEventListener('click', (event) => tileClicks(event, note));
 };
 
@@ -210,7 +144,7 @@ const showNote = (note) => {
   changeColorIcon.addEventListener('click', (event) =>
     changeColor(event, note)
   );
-  autoSaveTimer = setInterval(() => saveNote(note.getKey()), autoSaveDelay);
+  autoSaveTimer = setInterval(() => saveNote(note.key), autoSaveDelay);
 };
 
 /**
@@ -224,13 +158,13 @@ const updateNote = (event, note) => {
     currentText = event.target.value || '';
   switch (objectClass) {
     case 'note__preview-text':
-      note.setText(currentText);
+      note.text = currentText;
       break;
     case 'note__preview-header':
       if (event.key === 'Enter') {
         notePreviewText.focus();
       }
-      note.setHeader(currentText);
+      note.header = currentText;
       break;
   }
 };
@@ -247,8 +181,8 @@ function tileClicks(event, note) {
       showNote(note);
       break;
     case 'notes__note-delete':
-      note.getTile().remove();
-      deleteNote(note.getKey());
+      note.tile.remove();
+      deleteNote(note.key);
       break;
     default:
       return;
@@ -261,11 +195,11 @@ function tileClicks(event, note) {
  * @returns {void}
  */
 const changeColor = (event, note) => {
-  const tile = note.getTile(),
+  const tile = note.tile,
     color = randomColor();
   event.preventDefault();
-  note.setColor(color);
-  saveNote(note.getKey());
+  note.color = color;
+  saveNote(note.key);
   notePreview.style.backgroundColor = color;
   if (tile) {
     tile.style.backgroundColor = color;
@@ -280,14 +214,15 @@ const changeColor = (event, note) => {
 
 const saveNote = (key) => {
   const note = notes[key];
-  if (note.header || note.text) {
+  console.log(notes);
+  if (note.hasOwnProperty('header') || note.hasOwnProperty('text')) {
     if (isConnected) {
       fetch('/api/modifyNote', {
         method: 'PATCH',
         body: JSON.stringify(getNoteObject(note, key)),
       });
     } else {
-      localStorage.setItem(key, JSON.stringify(note));
+      addNoteIdb(getNoteObject(note));
     }
   }
 };
@@ -306,9 +241,8 @@ const deleteNote = (key) => {
       }),
     });
   } else {
-    localStorage.removeItem(key);
+    deleteNoteIdb(key);
     Reflect.deleteProperty(notes, key);
-    localStorage.setItem('keysArray', Object.keys(notes));
   }
 };
 
@@ -320,8 +254,8 @@ const deleteNote = (key) => {
  */
 const closeNote = (event, note) => {
   event.preventDefault();
-  let tile = note.getTile();
-  const key = note.getKey();
+  let tile = note.tile;
+  const key = note.key;
   notePreview.classList.remove('visible');
   clearInterval(autoSaveTimer);
   saveNote(key);
@@ -332,10 +266,8 @@ const closeNote = (event, note) => {
     return;
   } else if (tile == null) {
     createTile(note);
-    tile = note.getTile();
-    isConnected
-      ? saveNote()
-      : localStorage.setItem('keysArray', Object.keys(notes));
+    tile = note.tile;
+    saveNote();
   }
 
   const noteTileHeader = tile.querySelector('.notes__note-header');
@@ -348,19 +280,13 @@ const closeNote = (event, note) => {
  */
 const renderNoteTiles = async () => {
   let note;
-  if (isConnected) {
-    note = await fetch('/api/notes');
-    note = await note.json();
-    note = note.notes;
-  } else {
-    note = await openTransaction('readonly').getAll();
-  }
+  note = isConnected
+    ? await fetch('/api/notes').json().note
+    : await openTransaction('readonly').getAll();
   if (note) {
     note.forEach((noteObj) => {
-      const noteObject = new Note(),
-        key = noteObj.key;
-      noteObject.readNote(noteObj, key);
-      notes[key] = noteObject;
+      const key = noteObj.key;
+      notes[key] = noteObj;
       createTile(notes[key]);
     });
   }
