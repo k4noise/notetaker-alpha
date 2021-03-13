@@ -77,4 +77,4 @@ setTheme(textColorVariable, backgroundColorVariable);
 themeChangerButton.addEventListener('click', () =>
   changeTheme(textColorVariable, backgroundColorVariable)
 );
-// registerServiceWorker();
+registerServiceWorker();
