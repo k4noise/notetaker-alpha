@@ -1,4 +1,9 @@
-import { openDB, deleteDB, wrap, unwrap } from 'https://unpkg.com/idb?module';
+import {
+  openDB,
+  deleteDB,
+  wrap,
+  unwrap,
+} from '/node_modules/idb/with-async-ittr.js';
 
 const idb = await openDB('notetaker', 1, {
   upgrade(db) {
